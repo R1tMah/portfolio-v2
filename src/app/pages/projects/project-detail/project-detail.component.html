@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>
+  {{ project.title }}
+  <small *ngIf="project.dateRange" class="date">{{ project.dateRange }}</small>
+</h2>
+
+<mat-dialog-content>
+  <ul class="bullet-list">
+    <li *ngFor="let b of project.bullets">{{ b }}</li>
+  </ul>
+
+  <div *ngIf="project.metrics?.length">
+    <h3>Key Results</h3>
+    <ul class="metric-list">
+      <li *ngFor="let m of project.metrics">{{ m }}</li>
+    </ul>
+  </div>
+
+  <mat-chip-set class="skill-chips">
+    <mat-chip *ngFor="let skill of project.skills">
+      {{ skill }}
+    </mat-chip>
+  </mat-chip-set>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>
+    <mat-icon>close</mat-icon> Close
+  </button>
+</mat-dialog-actions>

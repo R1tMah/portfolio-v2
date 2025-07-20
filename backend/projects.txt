@@ -1,0 +1,122 @@
+I are Ritvik. 
+
+These are my projects he has around 12, and each one is labeled Project: 
+
+Project: 
+Author Classification Project
+- Created an end-to-end NLP pipeline to match texts to their authors, such as Jane Austen, Mark Twain, Charles Darwin, etc.
+- Used over 80 texts across 11 authors and cleaned them using nltk and spacy with stop word removal and stemming/lemmatization
+- Broke the texts into around 5000 chunks to analyze with training and testing.
+- Analyzed 3 different ways to create embeddings: Word2Vec, Bag of Words, and TF-IDF
+- For each embedding, ran 6 different models with each embedding to find the strongest performances: Logistic Regression, XGBoost, Decision Tree, Random Forest, Gradient Boosting, KNN
+The Strongest Combinations will be listed below:
+Bag of Words -> Logisitic Regression: 97%
+Bag of Words -> Random Forest: 90%
+ Bag of Words -> Gradient Boosting: 90%
+
+TF-IDF -> Logisitic Regression: 97%
+TF-IDF -> KNN: 95%
+
+Word2Vec -> Gradient Boosting: 82%
+
+
+-After, built a stacked Bi-LSTM + attention model run across 15 epochs to reach an accuracy of 94%
+
+-Also fine-tuned a BERT-base to reach an accuracy of 92.5%
+
+-Performed topic modeling by evaluating the LSA, LDA, and NMF top 10 topics.
+Skills: BERT (Language Model) · Bi-LSTM · Bag of Words · TF-IDF · Word2Vec
+
+Project: 
+MindMap
+-Created a Flutter Application that takes in a questionnaire that gauges mental health, attention span, and your motivation levels to find your optimal study method.
+-After finding the optimal working method (ex. 30 minutes work, 10 minutes break) and study method (Ex. Complete easy tasks before medium tasks), the user can input their tasks to do for the day and can categorize them into study tasks, fitness tasks, meals, or other.
+-For the study tasks our app offers resources based on the type of study task (arithmetic, memorization, conceptual, etc.)
+-Our app also includes a reminders page for tasks not in the current day.
+
+-Our app also includes a calendar database, similar to BeReal’s format, where users can see past schedules and how they planned their day on specific days.
+Skills: Flutter · SQLite · Open AI API · Application Programming Interfaces (API)
+
+Project: 
+AI Real Estate Agent (VillaVoice)
+- Created a React.js platform where users simulate a call with a real-estate agent to find their dream properties.
+- Leveraged AWS Lex to transcribe voice data and create a chat-bot with over and AWS Polly for text-to-speech.
+- Connected the bot to a Lambda function to pull data about ~200k properties in the United States from Zillow’s API
+Skills: AWS Lambda · Amazon Lex · Amazon Polly · React.js
+
+Project: 
+Analysis of Document Q-A on SQuAD dataset (Wikipedia Topics)
+- created a RAG and RAG-A system to answer questions based on the SQuAD dataset
+- created HuggingFace embeddings and used facebook/dpr-question_encoder-single-nq-base for encoding and tokenizing
+- implemented a vector database using FAISS and measured the differences between BERT and GPT
+- performed FAISS + BM25 Retrieval to retrieve vectors from database
+- Used BERT's deepset/roberta-base-squad2 for Q-A analysis with an EM score of 65%
+- Used GPT 3.5-turbo for Q-A analysis with an EM score of 67% and a precision of 85%
+Skills: Vector Databases · Retrieval-Augmented Generation (RAG) · RAG-A · BERT (Language Model) · GPT
+
+Project: 
+CNN Fruit Classification Project
+-Using the Fruits-360 dataset, trained a model to accurately classify fruits with an accuracy of around 90% across 160 classes
+-used matplotlib to analyze the data and create graphs
+-Looked at three different CNN architectures with different types of convolutional layers and poolings to find the strongest model
+
+Project: 
+Clustering Boston Marathon Project
+-built an unsupervised learning project which does analysis on Boston Marathon times to find important patterns and trends.
+-applied PCA and t-SNE for dimensionality reduction
+-performed two different clustering algorithms: K-means and GMMs (Gaussian Mixture Models)
+-used silhouette scores to analyze the best amount of clusters to have, as well as the stronger algorithm.
+- analyzed multiple types of features such as age and gender
+
+Project: 
+Data Science Attrition Analysis
+-analyzed different factors that lead to attrition (the act of employees leaving their company)
+- created a variety of different bar charts including heatmaps, boxplots, and bar-charts to analyze over 30 different possible columns using matplotlib and seaborn
+Skills: Matplotlib · Seaborn
+
+Project: 
+NBA Game Predictor
+- Developed a predictive model to forecast NBA game outcomes for avid basketball fans with 75% accuracy using a sci-kit-learn Logistic Regression model.
+- Used Pandas and NumPy to manipulate data from an NBA API to create features for the model.
+- Connected the predictions to a SQLAlchemy database.
+- Integrated the model with a Flask application and used HTML and CSS for the front-end and JavaScript for http requests and fetching from endpoints.
+Skills: Scikit-Learn · JavaScript · Flask · HTML · Cascading Style Sheets (CSS) · NumPy · Pandas (Software)
+
+Project: 
+NLI Analysis
+- Used a variety of different models to assign Natural Language Inferencing (NLI)
+- cleaned and balanced over 12,000 different examples to feed into the LLM
+- Used BERT-base-multilingual-cased to accurately assign the right answer with an accuracy of around 62%
+- Used a fine-tuned version of XLMRoberta specifically for sequence classification to reach an accuracy of around 70%
+ - Used ollama-7b:chat to reach an accuracy of around 64%
+
+Project: 
+Portfolio Website
+Built and deployed an Angular-based portfolio site, featuring an interactive timeline of 17 technical projects and experiences
+Created a page that features my variety of projects and allows filtering between full-stack, ml, nlp, cv, and datascience. 
+Built VibeMatch, an AI-powered feature where users input 5 favorite artists and receive a compatibility score from 0-100 based on alignment with my music taste, using fine-tuned embeddings and a FastAPI backend.
+Integrated a RAG-based chatbot to let users query my resume and project data in natural language with real-time, document-grounded responses.
+Skills: Angular | TypeScript | FastAPI | LangChain | FAISS | Tailwind
+
+Project: 
+Song Lyrics Sentiment Analysis
+- Developed a React.js application for users interested in the emotional content and depth of their favorite songs.
+- Trained a sentiment analysis model using TensorFlow and scikit-learn to evaluate the emotional content of song lyrics. Utilized tokenization and regression techniques, achieving a loss of 0.057 when predicting Spotify Valence values (ranging from 0 to 1).
+-Implemented a back-end system with Node.js, Express, and Flask.
+Skills: React.js · Node.js · Express.js · Flask · Scikit-Learn · TensorFlow
+
+Project: 
+Telecommunication Churn Analysis
+-Utilized a variety of models to analyze the churn rates, or the loss of customers using a Kaggle dataset.
+-Explored the data by creating a variety of bar-graphs using matplotlib and seaborn
+-Class balanced the data using SMOTE
+-Utilized both select-k-best and PCA to find the best amount of features to maximize my models' performance
+ -Used GridSearchCV to find the best hyperparameters for each model.
+
+ Model Accuracies are below:
+KNN: 92%
+Decision Tree: 92%
+Random Forest: 91%
+Gradient Boosting: 93%
+XGBoost: 93%
+Skills: Random Forest · XGBoost · Gradient Boosting · Decision Trees · K-Nearest Neighbors (KNN) · 

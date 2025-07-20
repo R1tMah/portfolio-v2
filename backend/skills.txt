@@ -1,0 +1,6 @@
+I am Ritvik. 
+
+These are my skills
+Programming Languages:  Python, Java, Dart, JavaScript, SQL, C,  R
+Frameworks/Databases/Tools: Angular, Flutter, React.js, Next.js, Flask, Node.js, Express, PostgreSQL, SQLite, SQLAlchemy, OpenCV, MongoDB, Git, Linux, Kaggle, Lambda, EC2, SQS, S3 Buckets, RDS, Ollama, BERT, LangChain, NLTK
+Certifications: IBM Full Stack Developer Certification (React.js, Node.js, MongoDB, Docker, Kubernetes, DevOps, Agile/Scrum Methodologies, Microservices courses), Minnodi LLC Computer Vision, NLP, and AI Agent Course

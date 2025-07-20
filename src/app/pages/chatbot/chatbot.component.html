@@ -1,0 +1,37 @@
+<div class="typewriter-container">
+  <h2 class="typewriter-heading">This is Ritvik.AI</h2>
+</div>
+<div class="typewriter-full">
+  <span class="line1">
+    This is a chatbot based on my resume and projects. 
+  </span><br>
+  <span class="line2">
+    I created this with RAG, but there's still a few bugs so it's still in the beta phase.
+  </span>
+</div>
+<mat-card class="chatbot-card">
+  <div class="messages" #scrollContainer>
+    <div *ngFor="let msg of history">
+      <p [ngClass]="{'user-msg': msg.from==='user', 'bot-msg': msg.from==='bot'}">
+        {{ msg.text }}
+      </p>
+    </div>
+  </div>
+
+  <form [formGroup]="chatForm" (ngSubmit)="send()" class="chat-form">
+    <mat-form-field appearance="outline" class="chat-input">
+      <input
+        matInput
+        placeholder="Ask me anything…"
+        formControlName="question"
+        (keydown.enter)="send()"
+      />
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="loading || !chatForm.value.question">
+      <ng-container *ngIf="!loading; else spinner">Send</ng-container>
+      <ng-template #spinner>
+        <mat-spinner diameter="20"></mat-spinner>
+      </ng-template>
+    </button>
+  </form>
+</mat-card>

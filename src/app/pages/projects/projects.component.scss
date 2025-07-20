@@ -1,0 +1,149 @@
+.typewriter-container {
+  text-align: center;
+  margin: 2rem 0; /* space above/below */
+}
+.typewriter-heading {
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2rem;
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #80cbc4;   /* static cursor */
+
+  /* Animate width from 0 to exactly the length of the text (21 characters) */
+  width: 0ch;
+  animation: typing 3s steps(21, end) forwards, 
+  blink-caret 0.75s step-end infinite;
+}
+
+/* projects.component.scss */
+
+/* 1) Grid layout */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+/* 2) Card styling */
+.project-card {
+  background: rgba(20, 20, 30, 0.9);
+  color: #e0e0e0;
+  max-width: 500px;
+  mat-card-header {
+    mat-card-title {
+      font-weight: 600;
+      color: #80cbc4;
+    }
+  }
+
+  mat-chip-list {
+    margin-top: 0.5rem;
+    mat-chip {
+      background: #333;
+      color: #aaa;
+      margin-right: 0.25rem;
+      
+    }
+  }
+
+  mat-card-actions button {
+    color: #80cbc4;
+    mat-icon {
+      margin-right: 0.25rem;
+    }
+  }
+}
+
+/* projects.component.scss */
+
+/* Filter bar centered at top */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  /* Make the container only as wide as its chips */
+  width: max-content;
+
+  /* And auto‑center it in its parent */
+  margin: 1rem auto;
+}
+
+
+.filter-bar mat-chip.selected-chip {
+  background-color: #80cbc4 !important;  /* override default */
+  color: #0a0a0f !important;
+  font-weight: 600;
+}
+
+
+.summary {
+  font-style: italic;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+.project-card {
+  cursor: pointer;         /* hint that it’s clickable */
+  &:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+}
+
+.typewriter-container {
+  text-align: center;
+  margin: 2rem 0; /* space above/below */
+}
+.typewriter-full {
+  font-family: 'Roboto Mono', monospace;
+  color: #e0e0e0;
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #80cbc4;
+  }
+
+  /* animate first line */
+  .line1 {
+    width: 0ch;
+    animation:
+      typing1 5s steps(80, end) forwards 3.5s,
+      hideCaret 0s step-end    8.5s forwards;
+  }
+
+  /* animate second line, starting after line1 finishes (≈3s) */
+  .line2 {
+    width: 0ch;
+    animation:
+      typing2 5s steps(90, end) forwards 9s,
+      blinkCaret 0.75s step-end infinite 7.5s;
+  }
+}
+/* Reveal one character at each step */
+@keyframes typing {
+  from { width: 0 }
+  to   { width: 21ch }
+}
+@keyframes typing1 {
+  from { width: 0ch; }
+  to   { width: 79ch; } /* match the number of chars in line1 */
+}
+@keyframes typing2 {
+  from { width: 0ch; }
+  to   { width: 90ch ; } /* match the number of chars in line2 */
+}
+
+@keyframes hideCaret {
+  to { border-right: none; }
+}
+/* Cursor blink */
+@keyframes blink-caret {
+  50% { border-color: transparent }
+}
+

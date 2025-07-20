@@ -1,0 +1,115 @@
+.chatbot-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    max-height: 400px;
+
+    p {
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      max-width: 80%;
+      margin: 0.25rem 0;
+      line-height: 1.4;
+    }
+
+    .user-msg {
+      background: #80cbc4;
+      color: #0a0a0f;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .bot-msg {
+      background: rgba(20,20,30,0.9);
+      color: #e0e0e0;
+      margin-right: auto;
+      text-align: left;
+    }
+  }
+
+  .chat-form {
+    display: flex;
+    align-items: center;
+
+    .chat-input {
+      flex: 1;
+      margin-right: 1rem;
+    }
+  }
+}
+.typewriter-container {
+  text-align: center;
+  margin: 2rem 0; /* space above/below */
+}
+.typewriter-heading {
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2rem;
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #80cbc4;   /* static cursor */
+
+  /* Animate width from 0 to exactly the length of the text (21 characters) */
+  width: 0ch;
+  animation: typing 3s steps(21, end) forwards, 
+  blink-caret 0.75s step-end infinite;
+}
+
+.typewriter-full {
+  font-family: 'Roboto Mono', monospace;
+  color: #e0e0e0;
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #80cbc4;
+  }
+
+  /* animate first line */
+  .line1 {
+    width: 0ch;
+    animation:
+      typing1 5s steps(80, end) forwards 3.5s,
+      hideCaret 0s step-end    8.5s forwards;
+  }
+
+  /* animate second line, starting after line1 finishes (≈3s) */
+  .line2 {
+    width: 0ch;
+    animation:
+      typing2 5s steps(90, end) forwards 9s,
+      blinkCaret 0.75s step-end infinite 5s;
+  }
+}
+/* Reveal one character at each step */
+@keyframes typing {
+  from { width: 0 }
+  to   { width: 18ch }
+}
+@keyframes typing1 {
+  from { width: 0ch; }
+  to   { width: 53ch; } /* match the number of chars in line1 */
+}
+@keyframes typing2 {
+  from { width: 0ch; }
+  to   { width: 96ch ; } /* match the number of chars in line2 */
+}
+
+@keyframes hideCaret {
+  to { border-right: none; }
+}
+/* Cursor blink */
+@keyframes blink-caret {
+  50% { border-color: transparent }
+}

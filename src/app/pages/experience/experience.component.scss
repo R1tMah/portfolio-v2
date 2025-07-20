@@ -1,0 +1,281 @@
+/* src/app/pages/experience/experience.component.scss */
+.typewriter-container {
+  text-align: center;
+  margin-bottom: 3rem; /* space above/below */
+}
+.detail-card {
+  align-items: center;
+  position: relative;           /* to anchor the absolute logo */
+  padding-top: 1.5rem;          /* add a bit of extra top padding */
+
+  .company-logo {
+    
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    border-radius: 4px;         /* optional */
+  }
+
+  /* push the header content right of the logo */
+  mat-card-header {
+    padding-left: 40px;         /* = logo width (24) + left (8) + some gutter (8) */
+  }
+}
+.typewriter-heading {
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2rem;
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #80cbc4;   /* static cursor */
+
+  /* Animate width from 0 to exactly the length of the text (21 characters) */
+  width: 0ch;
+  animation:
+    typingTitle 2s steps(21, end) forwards,
+    blinkCaret 0.75s step-end infinite 2s;
+
+}
+
+
+.typewriter-subheading {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.25rem;
+  color: #aaa;
+  white-space: pre-wrap;    /* honor the manual line break */
+  overflow: hidden;
+  border-right: 2px solid #80cbc4;
+  display: inline-block;    /* so width animation works */
+
+  /* text length is about 50 characters including spaces/newline */
+  width: 0ch;
+  animation:
+    typingSub 15s steps(180, end) forwards 2.5s,
+    blinkCaret 0.75s step-end infinite 6.5s;
+}
+/* 1) Thick center spine */
+.timeline-container {
+  overflow: visible; /* no scrollbars */
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  margin: 3rem auto;
+  padding: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: #80cbc4;
+    transform: translateX(-50%);
+  }
+}
+
+/* 2) Give each row real height via padding, not margin */
+.timeline-item {
+  position: relative;
+  padding: 1.5rem 0;            /* 4rem tall rows */
+  overflow: visible;          /* ensure children show */
+
+  /* 3) Month label, centered in its row */
+/* small dot marker for every month */
+    .timeline-marker {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    background: #80cbc4;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    }
+
+    /* adjust .timeline-month so it doesn’t overlap the marker */
+    .timeline-month {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -150%); /* move label above the marker */
+    background: #0a0a0f;
+    color: #e0e0e0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    z-index: 1;
+    }
+
+  /* 4) Detail box hidden by default, also centered vertically */
+  .timeline-content {
+    max-width: none;  
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60%;
+    background: rgba(10, 10, 15, 0.9);
+    padding: 2.5rem;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    color: #e0e0e0;
+  }
+
+  /* 5) Reveal box on hover */
+  &:hover .timeline-content {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* 6) Alternate sides */
+  &.left .timeline-content {
+    left: calc(50% + 12px);
+  }
+  &.right .timeline-content {
+    right: calc(50% + 12px);
+  }
+
+  /* 7) Hover highlight for month circle */
+  &:hover .timeline-month {
+    background: #80cbc4;
+    color: #0a0a0f;
+  }
+
+  /* 8) Inner text styling */
+  .employer {
+    font-style: italic;
+    margin: 0 0 0.5rem;
+  }
+  ul {
+    margin: 0.5rem 0 1rem 1.25rem;
+  }
+  strong {
+    color: #80cbc4;
+  }
+}
+
+/* 1) Two‑column layout: cards on left, timeline on right */
+.experience-layout {
+  display: grid;
+  /* Left column stays at 350px, right column is now twice as big as left */
+  grid-template-columns: 300px 1fr;
+  gap: 4rem;
+  /* bump up the max-width so the right column can grow */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+/* 2) Stack the three cards with spacing */
+.experience-cards {
+    width: 400px;   /* exactly your left‐column width */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-left: 0.5rem;
+  .detail-card {
+    background: rgba(20,20,30,0.9);
+    color: #e0e0e0;
+    border-radius: 0.5rem;
+  }
+  margin-left: 0;
+}
+
+
+
+
+
+
+/* 4) Optional: keep timeline vertically scrollable if it’s taller */
+
+
+
+@keyframes typing {
+  from { width: 0 }
+  to   { width: 21ch }
+}
+
+@keyframes typingTitle {
+  from { width: 0ch; }
+  to   { width: 24ch; }
+}
+@keyframes typingSub {
+  from { width: 0ch; }
+  to   { width: 180ch; }
+}
+
+
+.typewriter-full {
+  font-family: 'Roboto Mono', monospace;
+  color: #e0e0e0;
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #80cbc4;
+  }
+
+  /* animate first line */
+  .line1 {
+    width: 0ch;
+    animation:
+      typing1 5s steps(80, end) forwards 2.5s,
+      hideCaret 0s step-end    7.5s forwards;
+  }
+
+  /* animate second line, starting after line1 finishes (≈3s) */
+  .line2 {
+    width: 0ch;
+    animation:
+      typing2 5s steps(90, end) forwards 7.5s,
+      blinkCaret 0.75s step-end infinite 7.5s;
+  }
+}
+
+/* keyframes */
+@keyframes typing1 {
+  from { width: 0ch; }
+  to   { width: 91ch; } /* match the number of chars in line1 */
+}
+@keyframes typing2 {
+  from { width: 0ch; }
+  to   { width: 106ch ; } /* match the number of chars in line2 */
+}
+
+@keyframes hideCaret {
+  to { border-right: none; }
+}
+
+/* Cursor blink */
+@keyframes blink-caret {
+  50% { border-color: transparent }
+}
+
+@media (max-width: 768px) {
+  .experience-layout {
+    /* make it one column instead of two */
+    grid-template-columns: 1fr;
+    gap: 2rem;            /* maybe shrink the gap a bit */
+  }
+
+  /* ensure the cards come first, then the timeline */
+  .experience-cards {
+    order: 1;
+    width: 100%;
+    margin-bottom: 1.5rem;  /* give a little breathing room */
+  }
+  .timeline-container {
+    order: 2;
+    width: 100%;
+  }
+}

@@ -1,0 +1,152 @@
+/* src/app/pages/vibematch/vibematch.component.scss */
+
+/* your “beige” & accent colors */
+$beige : #c3e88d;
+$accent: #80cbc4;
+
+/* 1) The card itself */
+.vibe-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: rgba(20,20,30,0.9);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  color: $beige;              /* all text in the card */
+
+  h2 {
+    margin-bottom: 1rem;
+    color: $accent;           /* title accent */
+  }
+
+  mat-form-field {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    position: relative;
+    min-width: 140px;
+    margin-top: 1rem;
+  }
+
+  .result {
+    margin-top: 1.5rem;
+    h3 { color: $accent; margin: 0 0 .5rem; }
+    p  { margin: 0; }
+  }
+}
+
+/* 2) Pierce view‑encapsulation to restyle Material inputs */
+/* src/app/pages/vibematch/vibematch.component.scss */
+
+/* carry over your beige variable */
+$beige: #c3e88d;
+
+/* pierce view‑encapsulation to style the infix (the box behind your input) */
+:host ::ng-deep {
+  /* 1) Make every outline or fill form-field infix dark */
+  .vibe-card
+    .mat-form-field-appearance-outline .mat-form-field-infix,
+  .vibe-card
+    .mat-form-field-appearance-fill .mat-form-field-infix,
+  .vibe-card
+    .mat-form-field-infix {
+    background: rgba(20,20,30,0.9) !important;
+  }
+
+  /* 2) Force the input text itself to beige */
+  .vibe-card input.mat-input-element {
+    color: $beige !important;
+  }
+
+  /* 3) And its placeholder too */
+  .vibe-card input.mat-input-element::placeholder {
+    color: $beige !important;
+    opacity: 1 !important;
+  }
+
+  /* 4) Also the floating label when the field is focused or populated */
+  .vibe-card .mat-form-field-label {
+    color: $beige !important;
+  }
+
+  /* 5) Keep the outline stroke your accent on focus */
+  .vibe-card
+    .mat-form-field-appearance-outline.mat-focused
+    .mat-form-field-outline-thick {
+    stroke: #80cbc4 !important;
+  }
+}
+
+
+.typewriter-container {
+  text-align: center;
+  margin: 2rem 0; /* space above/below */
+}
+.typewriter-heading {
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2rem;
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #80cbc4;   /* static cursor */
+
+  /* Animate width from 0 to exactly the length of the text (21 characters) */
+  width: 0ch;
+  animation: typing 3s steps(21, end) forwards, 
+  blink-caret 0.75s step-end infinite;
+}
+
+.typewriter-full {
+  font-family: 'Roboto Mono', monospace;
+  color: #e0e0e0;
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #80cbc4;
+  }
+
+  /* animate first line */
+  .line1 {
+    width: 0ch;
+    animation:
+      typing1 5s steps(80, end) forwards 3.5s,
+      hideCaret 0s step-end    8.5s forwards;
+  }
+
+  /* animate second line, starting after line1 finishes (≈3s) */
+  .line2 {
+    width: 0ch;
+    animation:
+      typing2 5s steps(90, end) forwards 9s,
+      blinkCaret 0.75s step-end infinite 5s;
+  }
+}
+/* Reveal one character at each step */
+@keyframes typing {
+  from { width: 0 }
+  to   { width: 18ch }
+}
+@keyframes typing1 {
+  from { width: 0ch; }
+  to   { width: 53ch; } /* match the number of chars in line1 */
+}
+@keyframes typing2 {
+  from { width: 0ch; }
+  to   { width: 96ch ; } /* match the number of chars in line2 */
+}
+
+@keyframes hideCaret {
+  to { border-right: none; }
+}
+/* Cursor blink */
+@keyframes blink-caret {
+  50% { border-color: transparent }
+}

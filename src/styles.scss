@@ -1,1 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
+/* 1) Reset html/body for full viewport */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: transparent;   /* let the pseudo‑element show through */
+  font-family: 'Roboto Mono', monospace; /* your techy font */
+}
+
+/* 2) Base dark backdrop */
+body {
+  background-color: #0a0a0f;
+  position: relative;
+  overflow-x: hidden;
+  color: #e0e0e0;
+}
+
+/* 3) Starfield layer behind everything */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;                   /* shorthand for top/right/bottom/left */
+  pointer-events: none;
+  z-index: -9999;             /* way behind all content */
+  background:
+    radial-gradient(rgba(255,255,255,0.8) 2px, transparent 2px) 0 0/200px 200px repeat,
+    radial-gradient(rgba(255,255,255,0.3) 1px, transparent 1px)   0 0/70px 70px repeat;
+  background-attachment: fixed; /* lock to viewport */
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+/* 4) Section backgrounds semi‑transparent */
+section {
+  background: rgba(10, 10, 15, 0.85);
+}
+
+/* 5) Link accent & hover */
+a {
+  color: #80cbc4;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #c3e88d;
+}
+
+/* 6) Twinkle animation */
+@keyframes twinkle {
+  0%   { opacity: 0.9; }
+  50%  { opacity: 0.4; }
+  100% { opacity: 0.9; }
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* your beige and accent colors */
+$beige:   #c3e88d;
+$accent:  #80cbc4;
+
+
+/* 4) Floating label when you focus or type */
+
+
+/* 5) Active underline / outline color (for fill, it's the underline) */
+
+

@@ -1,0 +1,220 @@
+/* 1) Full‑screen Hero layout */
+.home-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 4rem;
+
+  /* Image on the left */
+  .hero-image {
+    flex-shrink: 0;
+    margin-right: 6rem;
+
+    img {
+      width: 400px;
+      border-radius: 50%;
+      opacity: 0;
+      /* Slide in, then bob */
+      animation:
+        slideInLeft 1s ease-out forwards,
+        floatBob   6s ease-in-out 1s infinite;
+    }
+  }
+
+  /* Text on the right */
+  .hero-text {
+    max-width: 50%;
+    margin-left: 2rem;
+
+    .headline {
+      font-size: 3.5rem;
+      margin: 0 0 0.5rem;
+      color: #fbfad1ff;
+      opacity: 0;
+      animation: fadeInRight 1s ease-out forwards;
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+      color: #80cbc4;
+      margin: 0;
+      opacity: 0;
+      animation: fadeInRight 1s ease-out forwards 0.3s;
+    }
+  }
+}
+
+/* 2) Details always visible underneath */
+.home-details{
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 2s ease-out, transform 2s ease-out;
+  padding: 4rem 2rem;
+  background: rgba(10, 10, 15, 0.65); /* for starfield peek‑through */
+  color: #fbfad1ff;
+  
+  .about-me{
+    color:#80cbc4;
+    text-align: center;
+    animation: 
+        bounce 1s ease-in-out  infinite;
+  }
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .description-card {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    padding: 2rem;
+    background: rgba(20,20,30,0.8);
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  
+  
+
+    .description-text {
+        column-count: 3;
+        column-gap: 2rem;
+        line-height: 1.7;
+        & > p {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+     }
+    }
+    }
+
+  .toc {
+    list-style: none;
+    padding: 0;
+    max-width: 400px;
+    margin: 0 auto;
+
+    li {
+      margin-bottom: 0.75rem;
+      a {
+        color: #80cbc4;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+        &:hover {
+          color: #c3e88d;
+        }
+      }
+    }
+  }
+}
+
+.bio-cards {
+  display: flex;
+  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 1000px;
+
+  .bio-card {
+    background: rgba(20,20,30,0.65);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    line-height: 2.0;
+
+    mat-icon {
+      font-size: 1.5rem;
+      color: #80cbc4;
+      margin-bottom: 1rem;
+    }
+
+    p { margin: 0; color: #e0e0e0; }
+  }
+}
+
+
+
+.toc-list {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(255,255,255,0.1);
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+
+    .item-icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      margin-right: 1rem;
+      color: #80cbc4;           /* icon color */
+    }
+
+    .item-content {
+      flex: 1;
+
+      .item-title {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        a {
+          color: #fbfad1ff;
+          text-decoration: none;
+          &:hover { text-decoration: underline; }
+        }
+      }
+
+      .item-desc {
+        margin: 0.25rem 0 0;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+    }
+  }
+}
+
+.toc-title {
+  text-align: center;
+  font-size: 1.5rem;       /* adjust as needed */
+  font-weight: 500;
+  margin: 2rem 0 1rem;     /* space above & below */
+  color: #fbfad1ff;
+  /* inherits your monospace font from global styles */
+}
+
+/* 3) Keyframes */
+@keyframes slideInLeft {
+  0%   { transform: translateX(-50px); opacity: 0; }
+  100% { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes fadeInRight {
+  0%   { transform: translateX(50px); opacity: 0; }
+  100% { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes floatBob {
+  0%, 100% { transform: translateY(30); }
+  50%      { transform: translateY(-30px); }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}

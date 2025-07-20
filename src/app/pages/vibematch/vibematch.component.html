@@ -1,0 +1,44 @@
+<!-- src/app/pages/vibematch/vibematch.component.html -->
+ <div class="typewriter-container">
+  <h2 class="typewriter-heading">This is VibeMatch</h2>
+</div>
+<div class="typewriter-full">
+  <span class="line1">
+    This is a place where we can compare our music tastes. 
+  </span><br>
+  <span class="line2">
+    I listen to primarily Rap and R&B. Input your 5 favorite artists below to see how well we match
+  </span>
+</div>
+<mat-card class="vibe-card">
+  <h2>VibeMatch</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div formArrayName="artists">
+      <mat-form-field appearance="fill" class="dark-field"
+        *ngFor="let ctl of artists.controls; let i = index">
+        <input matInput
+               placeholder="Artist {{ i + 1 }}"
+               [formControlName]="i" />
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" [disabled]="loading">
+      <ng-container *ngIf="!loading; else loadingTpl">
+        Match Vibes
+      </ng-container>
+      <ng-template #loadingTpl>
+        <mat-progress-spinner
+          class="button-spinner"
+          diameter="20"
+          mode="indeterminate">
+        </mat-progress-spinner>
+      </ng-template>
+    </button>
+  </form>
+
+  <div *ngIf="result" class="result">
+    <h3>Your Score: {{ result.score }} / 100</h3>
+    <p>{{ result.caption }}</p>
+  </div>
+</mat-card>

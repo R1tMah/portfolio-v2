@@ -1,0 +1,27 @@
+I am Ritvik. 
+
+These are all experiences I did, if someone asks about them describe them in full
+
+Experience 1: 
+
+Minnodi LLC                                                                                          	     	  Frederick, Maryland
+AI/ML Engineer Intern                                                                          	                                 June 2025- August 2025
+Designed a natural language-driven assistant for users with disabilities to complete complex online tasks, using LangChain, Browser Use, and Gemini agents to automate 16–28 step workflows across ~20 sites like Amazon, Expedia, and UberEats.
+Developed task planning strategies to dynamically identify and interact with UI elements; tuned prompt formats for ~30 different task types including flight booking, food ordering, and multi-item cart addition, decreasing average steps by ~45%.
+Integrated Monte Carlo Tree Search-based reinforcement learning into agent planning, enabling adaptive long-horizon task execution and improving task success rates on multi-page workflows by ~12%.
+Collaborated on frontend integration using React.js and ElevenLabs TTS, enhancing accessibility and user experience.
+
+Experience 2: 
+Booz-Allen Hamilton – App Dev Club                                        		           College Park, Maryland
+Full Stack Developer                                                                                            	      	  January 2025-May 2025
+Collaborated on a 10-person Agile team to architect a containerized Next.js application that automates insurance policy auditing, saving Booz-Allen Hamilton an estimated $50,000. 
+Designed and implemented backend search and filter APIs leveraging PostgreSQL full-text search, enabling efficient partial and fuzzy text matching for rapid policy retrieval and improved user experience.
+Engineered an OCR pipeline with Tesseract-OCR and OpenCV, preprocessing scanned insurance documents and extracting structured data with high accuracy for downstream processing.
+Built a scalable, event-driven data processing pipeline using AWS Lambda, EC2, SQS, and S3 buckets, orchestrating the queuing of 500+ sample policy documents from an RDS instance for automated extraction, storage, and summarization
+
+Experience 3: 
+STEM-E Youth Development Center 			               	                                           Remote 
+Software Developer Intern                                                                                                     January 2024-August 2024
+Remotely worked with a group of fellow interns using HTML, CSS, and JavaScript to implement a working prototype for a web application that takes in notes and summarizes them by around 50%, and returns quizzes relating to the information given in the notes for an estimated 100+ users. 
+Worked on over 10 Figma wireframe designs for different web applications with other interns. 
+

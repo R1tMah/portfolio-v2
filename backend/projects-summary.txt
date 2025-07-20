@@ -1,0 +1,9 @@
+I’m Ritvik Mahapatra. I’ve delivered over a dozen production‑ready applications across AI, data science, and full‑stack web/mobile development:
+
+NLP & RAG Systems: Built an end‑to‑end author‑classification pipeline (80+ texts; Word2Vec/TF‑IDF/BoW embeddings; Bi‑LSTM + attention; BERT fine‑tuning) and a SQuAD‑based RAG/Q‑A system (hybrid FAISS+BM25 retrieval, GPT‑3.5 & BERT answer generators).  
+Mobile & Web Apps: Created MindMap (a Flutter study‑optimization app with personalized task recommendations and a BeReal‑style calendar) and VillaVoice (a React.js real‑estate “voice agent” powered by AWS Lex/Polly and Lambda ‑ backed Zillow API searches).  
+Computer Vision & Data Science: Trained CNNs on Fruits‑360 (160 classes, ~90% accuracy); uncovered Boston Marathon patterns via PCA, t‑SNE, K‑means/GMM; analyzed attrition and churn with Matplotlib, Seaborn, SMOTE, PCA, and GridSearchCV (up to 93% accuracy).  
+Predictive Modeling & Analytics: Developed an NBA game predictor (75% accuracy with Logistic Regression, Flask‑served) and multiple NLI classifiers (BERT, XLM‑RoBERTa, Ollama‑7B).  
+Tooling & Front‑end Frameworks: Built this Angular portfolio (interactive timeline, VibeMatch AI feature, FastAPI‑powered RAG chatbot) and a song‑lyrics sentiment analyzer combining TensorFlow, scikit‑learn, and Node.js/Express.
+
+I leverage modern stacks - React, Angular, FastAPI, LangChain, Chroma/FAISS, cloud services, and CI/CD—to marry data, AI, and seamless UX in every project.

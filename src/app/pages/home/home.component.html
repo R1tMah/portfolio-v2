@@ -1,0 +1,89 @@
+<!-- src/app/pages/home/home.component.html -->
+
+<!-- 1) Hero only: headline + picture -->
+<section class="home-hero">
+  <div class="hero-text">
+    <h1 class="headline">Hi, I’m <br>Ritvik Mahapatra</h1>
+    <p class="tagline">CS + Econ &#64; UMD | Full‑Stack & ML Engineer</p>
+  </div>
+  <div class="hero-image">
+    <img src="/assets/ritvik-portrait.jpg" alt="Portrait of Ritvik Mahapatra" />
+  </div>
+</section>
+
+<!-- 2) Hidden until you scroll: full description + TOC -->
+<section class="home-details" #details>
+    <h1 class = "about-me">About Me</h1>
+    <div class="bio-cards">
+        
+    <div class="bio-card">
+        <mat-icon>school</mat-icon>
+        <p>CS major &amp; Econ minor &#64; UMD, graduating May 2026.</p>
+    </div>
+    <div class="bio-card">
+        <mat-icon>code</mat-icon>
+        <p>Built 14 projects using React, Node.js, Postgres, LangChain, GPT, and more!</p>
+    </div>
+    <div class="bio-card">
+        <mat-icon>rocket_launch</mat-icon>
+        <p>Architected RAG chatbots &amp; voice‑enabled accessibility tools.</p>
+    </div>
+    <div class="bio-card">
+        <mat-icon>work</mat-icon>
+        <p>Done work for companies like Booz-Allen-Hamilton, Minnodi LLC, and more!</p>
+    </div>
+    </div>
+<h2 class="toc-title">
+    Please feel free to explore the rest of my website!
+</h2>
+  <ul class="toc-list">
+    <li class="toc-item">
+      <mat-icon class="item-icon">timeline</mat-icon>
+      <div class="item-content">
+        <p class="item-title">
+          <a routerLink="/experience">Experience</a>
+        </p>
+        <p class="item-desc">
+          Interactive timeline of my college career, internships, and coursework.
+        </p>
+      </div>
+    </li>
+
+    <li class="toc-item">
+      <mat-icon class="item-icon">folder_open</mat-icon>
+      <div class="item-content">
+        <p class="item-title">
+          <a routerLink="/projects">Projects</a>
+        </p>
+        <p class="item-desc">
+          A gallery of 14 filterable projects showcasing full‑stack, ML (NLP, RAG, CV), and Data science work.
+        </p>
+      </div>
+    </li>
+
+    <li class="toc-item">
+      <mat-icon class="item-icon">chat</mat-icon>
+      <div class="item-content">
+        <p class="item-title">
+          <a routerLink="/chatbot">Ritvik.AI</a>
+        </p>
+        <p class="item-desc">
+          An RAG‑powered chatbot trained on my resume and project write‑ups.
+        </p>
+      </div>
+    </li>
+
+    <li class="toc-item">
+      <mat-icon class="item-icon">music_note</mat-icon>
+      <div class="item-content">
+        <p class="item-title">
+          <a routerLink="/vibematch">VibeMatch</a>
+        </p>
+        <p class="item-desc">
+          Compare your favorite artists with mine and get a compatibility score.
+        </p>
+      </div>
+    </li>
+  </ul>
+
+</section>

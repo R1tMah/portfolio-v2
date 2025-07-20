@@ -1,0 +1,36 @@
+/* src/app/layout/footer/footer.component.scss */
+
+.site-footer {
+  display: flex;
+  flex-direction: column;  /* stack child blocks vertically */
+  align-items: center;     /* center them horizontally */
+  text-align: center;      /* fallback for inline text */
+  background: rgba(10, 10, 15, 0.9);
+  color: #e0e0e0;
+  padding: 2rem;
+  font-size: 1.1rem;
+
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;  /* center the link row */
+    gap: 2rem;
+    margin-bottom: 1rem;
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      font-size: 1.1rem;
+
+      mat-icon {
+        font-size: 1.4rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .footer-credit {
+    font-size: 0.9rem;
+    color: #777;
+  }
+}

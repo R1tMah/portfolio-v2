@@ -1,0 +1,71 @@
+<!-- src/app/pages/projects/projects.component.html -->
+
+<!-- 1) Type‑writer heading -->
+<div class="typewriter-container">
+  <h2 class="typewriter-heading">These are my projects</h2>
+</div>
+<div class="typewriter-full">
+  <span class="line1">
+    These are all the projects I've completed over Full-Stack and Machine Learning
+  </span><br>
+  <span class="line2">
+    Click on the tags to filter them out, and click on the project cards for more information!
+  </span>
+</div>
+<!-- 2) Filter bar -->
+<mat-chip-set class="filter-bar">
+  <mat-chip
+    *ngFor="let tag of allTags"
+    (click)="selectTag(tag)"
+    [ngClass]="{ 'selected-chip': tag === selectedTag }">
+    {{ tag }}
+  </mat-chip>
+</mat-chip-set>
+
+<!-- 3) Projects grid -->
+<div class="projects-grid">
+  <mat-card *ngFor="let project of filteredProjects" class="project-card" (click)="openDetails(project)">
+    
+    <!-- Card header -->
+    <mat-card-header>
+      <mat-card-title>{{ project.title }}</mat-card-title>
+    </mat-card-header>
+
+    <!-- Card body -->
+    <mat-card-content>
+
+      <!-- Bullets -->
+      <p class="summary">{{ project.bullets[0] }}</p>
+
+
+      <!-- Skills chips -->
+      <mat-chip-set class="skill-chips">
+        <mat-chip *ngFor="let skill of project.skills">{{ skill }}</mat-chip>
+      </mat-chip-set>
+
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+    <button mat-button (click)="openDetails(project); $event.stopPropagation()">
+      <mat-icon>info</mat-icon> Details
+    </button>
+  </mat-card-actions>
+    <!-- Card actions (wire up real links when you’re ready) -->
+    <mat-card-actions align="end">
+      <button mat-button>
+        <mat-icon>code</mat-icon>     <a
+      *ngIf="project.repoUrl"
+      class="github-link"
+      [href]="project.repoUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <!-- you can swap this for a Material icon or an <img> -->
+      
+      View Code
+    </a>
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+</div>

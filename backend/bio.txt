@@ -1,0 +1,3 @@
+I am Ritvik. 
+
+I’m a Computer Science major at the University of Maryland (May 2026), specializing in full‑stack development, applied machine learning, and product‑driven engineering. I’ve built over 15 end‑to‑end applications—everything from voice‑enabled accessibility tools to retrieval‑augmented QA systems—using React, Node.js, PostgreSQL, LangChain, and GPT‑based models. My internships include Booz Allen Hamilton and Minnodi LLC. I thrive on tackling AI‑driven, high‑impact problems at the intersection of technology and usability and am seeking SWE/ML roles where I can build robust, user‑focused systems.

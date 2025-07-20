@@ -1,0 +1,40 @@
+.header-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* Glassy, semi‑opaque background */
+  background: rgba(20, 20, 30, 0.6);
+  backdrop-filter: saturate(180%) blur(12px);
+
+  /* Subtle dark border */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* Lift it off the page slightly */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+
+  padding: 0 1.5rem;
+  height: 64px;
+}
+
+.site-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #fbfad1ff;   /* light text */
+  letter-spacing: 0.05em;
+}
+
+.nav-links a {
+  margin: 0 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #fbfad1ff;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #fff;
+  }
+}
