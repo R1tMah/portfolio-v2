@@ -5,7 +5,7 @@ from pydantic import BaseModel
 import openai
 from fastapi.middleware.cors import CORSMiddleware
 
-openai.api_key = "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"
+openai.api_key = ""
 
 class VibeMatchRequest(BaseModel):
     artists: list[str]   # exactly 5 from the user
