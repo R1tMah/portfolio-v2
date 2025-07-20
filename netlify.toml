@@ -1,0 +1,7 @@
+[build]
+  # your SSR build script, which runs both client + server
+  command   = "npm run build"
+  # point Netlify at your client-side assets
+  publish   = "dist/ritvik-portfolio/browser"
+  # point Netlify Functions at your SSR server bundle
+  functions = "dist/ritvik-portfolio/server"
