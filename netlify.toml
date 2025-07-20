@@ -1,4 +1,5 @@
 [build]
   command = "ng build --configuration production"
-  publish = "dist/ritvik-portfolio"
+  publish = "dist/ritvik-portfolio/browser"
+  functions = "dist/ritvik-portfolio/server"
 
