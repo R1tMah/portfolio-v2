@@ -38,6 +38,7 @@
     "zone.js": "^0.15.1"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^20.1.1",
     "@angular/build": "^20.1.0",
     "@angular/cli": "^20.1.1",
     "@angular/compiler-cli": "^20.1.0",
@@ -52,8 +53,7 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.8.2"
   },
-
-    "engines": {
+  "engines": {
     "node": ">=20.19.0"
   }
 }
