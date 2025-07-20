@@ -63,6 +63,14 @@
           },
           "defaultConfiguration": "production"
         },
+        "server": {
+        "builder": "@angular-devkit/build-angular:server",
+        "options": {
+          "outputPath": "dist/ritvik-portfolio/server",
+          "main": "src/main.server.ts",
+          "tsConfig": "tsconfig.server.json"
+        }
+       },
         "serve": {
           "builder": "@angular/build:dev-server",
           "configurations": {
