@@ -23,7 +23,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200", "https://ritvikmaha.netlify.app"],  # during dev
+    allow_origins=["http://localhost:4200", "https://ritvik-mahapatra.netlify.app"],  # during dev
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
