@@ -3,6 +3,7 @@
 import { Injectable }             from '@angular/core';
 import { HttpClient }             from '@angular/common/http';
 import { Observable }             from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface ChatRequest {
   question: string;
@@ -25,17 +26,17 @@ export interface VibeMatchRes {
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private base = '/api';  // adjust for prod
-
   constructor(private http: HttpClient) {}
-
-  /** RAG chat endpoint */
-  chat(req: ChatRequest): Observable<ChatResponse> {
-    return this.http.post<ChatResponse>(`${this.base}/chat`, req);
+  vibematch(req: VibeMatchReq) {
+    return this.http.post<VibeMatchRes>(
+      `${environment.apiBase}/vibematch`,
+      req
+    );
   }
-
-  /** VibeMatch endpoint */
-  vibematch(req: VibeMatchReq): Observable<VibeMatchRes> {
-    return this.http.post<VibeMatchRes>(`${this.base}/vibematch`, req);
+  chat(req: ChatRequest) {
+    return this.http.post<ChatResponse>(
+      `${environment.apiBase}/chat`,
+      req
+    );
   }
 }
