@@ -83,7 +83,7 @@ I have ranked my top 15 artists: {', '.join(TIER_LIST)}
 User's 5 favorites: {', '.join(req.artists)}
 
 1) Rate compatibility 0–100.  Bonus Points if they're on the list, but take into account the type/genre of artists too, and make sure you look at the tiers, with 1 the best, for example, if the artist mentions Drake or Juice WRLD give a big boost to their score, as you can see here there's not that much pop involved so don't give those kind of artists high scores. Be as objective as possible and don't be afraid to give a lower score, but also don't be afraid to give out 90+ if they put a bunch of my favorite artists. Bonus points if they mention Bollywood artists too
-2) Give a one‑sentence funny caption about our shared tastes, but don't reference tiers in any way and don't mention any artists that they didn't list, DO NOT REFERENCE BOLLYWOOD AT ALL.
+2) Give a one‑sentence funny caption about our shared tastes, but don't reference tiers in any way and don't mention any artists that they didn't list, DO NOT REFERENCE BOLLYWOOD AT ALL, LIKE IT SHOULD NOT BE MENTIONED IN YOUR RESPONSE. DO NOT SAY ANYTHING ABOUT BOLLYWOOD.
 Reply JSON like: {{ "score":78, "caption":"…"}}
 """
     completion = openai.chat.completions.create(
