@@ -23,7 +23,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200", "https://ritvik-mahapatra.netlify.app"],  # during dev
+    allow_origins=["http://localhost:4200", "https://ritvikmaha.netlify.app"],  # during dev
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -49,7 +49,7 @@ class VibeMatchRes(BaseModel):
 
 # 5) Initialize your retrieval‑augmented chain
 llm_model = ChatOpenAI(model_name="gpt-4", temperature=0)
-retriever  = get_retriever(k=8)
+retriever  = get_retriever(k=5)
 chat_chain = ConversationalRetrievalChain.from_llm(llm_model, retriever,return_source_documents=True,  combine_docs_chain_kwargs={"prompt": qa_prompt})
 
 # 6) /chat endpoint
