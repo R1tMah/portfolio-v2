@@ -4,53 +4,52 @@ Welcome to my personal portfolio repository! This project showcases my work acro
 
 Features:
 
-
-
+<br>
 Projects Page:
-
+<br>
 Interactive grid of projects with filter  by tags (e.g., #ML, #Full-Stack, #NLP, etc.).
 
 Click or hover each card for a detailed view with write-up, tech stack, and GitHub links.
 
-
+<br><br>
 
 Experience Page:
-
+<br>
 Visual timeline of internships, clubs, and relevant coursework.
 
 In-depth descriptions of each experience, and certification
 
-
+<br><br>
 Ritvik.AI:
-
+<br>
 RAG-based chatbot trained on my resume and project data.
 
 Built with LangChain + FastAPI + FAISS; answers queries in real-time.
 
-
+<br><br>
 Vibe Match (Music Compatibility Tool):
-
+<br>
 Input 5 favorite artists; returns a compatibility score using fine-tuned embeddings.
 
 Fun UI with spinner, emojis, and confetti.
 
-
-What I'm working on next with it: 
+<br><br>
+What I'm working on next with it: <br>
 Music reccommendation system.
 
 
-
+<br><br><br><br>
 Tech Stack
 
 Front-End: Angular, TypeScript, SCSS
 
 Back-End: FastAPI (Python)
 
-AI / RAG: LangChain, FAISS, OpenAI GPT-3.5
+AI / RAG: LangChain, FAISS, OpenAI GPT-4
 
-Deployment: Vercel / Netlify (Front-End), Docker, Kubernetes (Back-End)
+Deployment: Netlify (Front-End), Render (Back-End)
 
-CI/CD: GitHub Actions, Terraform
+CI/CD: GitHub Actions
 
 Installation & Setup
 
@@ -60,7 +59,6 @@ Node.js v16+
 
 Python 3.9+
 
-Docker & Kubernetes (for local back-end)
 
 Git
 
