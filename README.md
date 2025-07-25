@@ -1,5 +1,67 @@
 # RitvikPortfolio
 
+Welcome to my personal portfolio repository! This project showcases my work across Full-Stack Web, Machine Learning, and Data Science disciplines. It’s built with modern frameworks and features an interactive UI, AI-powered assistants, and live demos of my technical projects.
+
+Features:
+
+Home / Landing Page
+
+Animated entrance with a brief self-introduction and tagline.
+
+Dark / Light mode toggle.
+
+Projects Page
+
+Interactive grid of projects with filter  by tags (e.g., #ML, #Full-Stack, #NLP, etc.).
+
+Click or hover each card for a detailed view with write-up, tech stack, and GitHub links.
+
+Experience Timeline
+
+Visual timeline of internships, clubs, and relevant coursework.
+
+In-depth descriptions of each experience
+
+Ritvik.AI
+
+RAG-based chatbot trained on my resume and project data.
+
+Built with LangChain + FastAPI + FAISS; answers queries in real-time.
+
+Vibe Match (Music Compatibility Tool)
+
+Input 5 favorite artists; returns a compatibility score using fine-tuned embeddings.
+
+Fun UI with spinner, emojis, and confetti.
+
+What I'm working on next with it: 
+Music reccommendation system.
+
+Tech Stack
+
+Front-End: Angular, TypeScript, SCSS
+
+Back-End: FastAPI (Python)
+
+AI / RAG: LangChain, FAISS, OpenAI GPT-3.5
+
+Deployment: Vercel / Netlify (Front-End), Docker, Kubernetes (Back-End)
+
+CI/CD: GitHub Actions, Terraform
+
+Installation & Setup
+
+Prerequisites
+
+Node.js v16+
+
+Python 3.9+
+
+Docker & Kubernetes (for local back-end)
+
+Git
+
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
 
 ## Development server
