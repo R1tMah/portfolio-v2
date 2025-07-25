@@ -147,3 +147,18 @@
   50% { border-color: transparent }
 }
 
+
+@media (max-width: 600px) {
+  /* headings & full text fall back to normal flow */
+  .typewriter-heading{
+    font-size: 1.5rem;
+  }
+  .typewriter-full span {
+    white-space: normal;      /* allow wrapping */
+    overflow: visible;        /* no clipping */
+    border-right: none;       /* no cursor bar */
+    width: auto !important;   /* ignore the 0ch→Nch animation */
+    animation: none !important;
+    font-size: 1rem;       /* scale down if needed */
+  }
+}

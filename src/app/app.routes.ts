@@ -5,6 +5,8 @@ import { ProjectsComponent }  from './pages/projects/projects.component';
 import { ChatbotComponent }   from './pages/chatbot/chatbot.component';
 import { VibematchComponent } from './pages/vibematch/vibematch.component';
 import { ContactComponent }   from './pages/contact/contact.component';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 export const routes: Routes = [
   { path: '',            component: HomeComponent },
@@ -15,3 +17,4 @@ export const routes: Routes = [
   { path: 'contact',     component: ContactComponent },
   { path: '**',          redirectTo: '', pathMatch: 'full' }
 ];
+

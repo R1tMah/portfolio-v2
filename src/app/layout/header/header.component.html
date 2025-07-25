@@ -1,10 +1,32 @@
 <mat-toolbar color="primary" class="header-toolbar">
   <span class="site-title">Ritvik Mahapatra</span>
+  <!-- Hamburger only on mobile -->
+  <button
+    mat-icon-button
+    class="mobile-menu-btn"
+    (click)="menuOpen = !menuOpen"
+    aria-label="Toggle navigation"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  
+
+  <!-- Desktop nav -->
   <nav class="nav-links">
     <a mat-button routerLink="/">Home</a>
     <a mat-button routerLink="/experience">Experience</a>
     <a mat-button routerLink="/projects">Projects</a>
     <a mat-button routerLink="/chatbot">Ritvik.AI</a>
     <a mat-button routerLink="/vibematch">VibeMatch</a>
+  </nav>
+
+  <!-- Mobile nav (toggles open/closed) -->
+  <nav class="mobile-nav" [class.open]="menuOpen">
+    <a mat-button routerLink="/" (click)="menuOpen = false">Home</a>
+    <a mat-button routerLink="/experience" (click)="menuOpen = false">Experience</a>
+    <a mat-button routerLink="/projects" (click)="menuOpen = false">Projects</a>
+    <a mat-button routerLink="/chatbot" (click)="menuOpen = false">Ritvik.AI</a>
+    <a mat-button routerLink="/vibematch" (click)="menuOpen = false">VibeMatch</a>
   </nav>
 </mat-toolbar>

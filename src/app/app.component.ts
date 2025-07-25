@@ -1,4 +1,4 @@
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, NavigationEnd  } from '@angular/router';
 import { HeaderComponent } from './layout/header/header.component';
 import { Component, AfterViewInit, HostListener, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -18,6 +18,7 @@ export class AppComponent implements AfterViewInit {
   private ctx!: CanvasRenderingContext2D;
   private stars: { x: number; y: number; r: number; alpha: number; dAlpha: number }[] = [];
   private numStars = 200;
+  
 
   ngAfterViewInit() {
      if (!this.isBrowser) {
