@@ -4,38 +4,41 @@ Welcome to my personal portfolio repository! This project showcases my work acro
 
 Features:
 
-Home / Landing Page
 
-Animated entrance with a brief self-introduction and tagline.
 
-Dark / Light mode toggle.
-
-Projects Page
+Projects Page:
 
 Interactive grid of projects with filter  by tags (e.g., #ML, #Full-Stack, #NLP, etc.).
 
 Click or hover each card for a detailed view with write-up, tech stack, and GitHub links.
 
-Experience Timeline
+
+
+Experience Page:
 
 Visual timeline of internships, clubs, and relevant coursework.
 
-In-depth descriptions of each experience
+In-depth descriptions of each experience, and certification
 
-Ritvik.AI
+
+Ritvik.AI:
 
 RAG-based chatbot trained on my resume and project data.
 
 Built with LangChain + FastAPI + FAISS; answers queries in real-time.
 
-Vibe Match (Music Compatibility Tool)
+
+Vibe Match (Music Compatibility Tool):
 
 Input 5 favorite artists; returns a compatibility score using fine-tuned embeddings.
 
 Fun UI with spinner, emojis, and confetti.
 
+
 What I'm working on next with it: 
 Music reccommendation system.
+
+
 
 Tech Stack
 
