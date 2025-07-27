@@ -11,19 +11,20 @@ from langchain_community.vectorstores  import Chroma
 
 # 1) Load your env (so OPENAI_API_KEY is available)
 load_dotenv()
-
+BASE_DIR = Path(__file__).parent
+PERSIST  = str(BASE_DIR / "chroma_db")
 # 2) Point at your docs
 BASE_DIR = Path(__file__).parent
 DOC_PATHS = [
-  BASE_DIR / "bio.txt",
-  BASE_DIR / "education.txt",
-  BASE_DIR / "projects-summary.txt",
-  BASE_DIR / "experience_summary.txt",
-  BASE_DIR / "new_experience.txt",
-  BASE_DIR / "projects.txt",
-  BASE_DIR / "skills.txt",
-  BASE_DIR / "contact-info.txt",
-  BASE_DIR / "personal.txt",
+  BASE_DIR / "docs/bio.txt",
+  BASE_DIR / "docs/education.txt",
+  BASE_DIR / "docs/projects-summary.txt",
+  BASE_DIR / "docs/experience_summary.txt",
+  BASE_DIR / "docs/new_experience.txt",
+  BASE_DIR / "docs/projects.txt",
+  BASE_DIR / "docs/skills.txt",
+  BASE_DIR / "docs/contact-info.txt",
+  BASE_DIR / "docs/personal.txt",
 ]
 
 # 3) Read & split into LangChain Documents
@@ -39,11 +40,9 @@ for p in DOC_PATHS:
 emb = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
 
 # 5) Build (or load) a Chroma vectorstore via LangChain
-vectordb = Chroma.from_documents(
-    documents=docs,
-    embedding=emb,
-    collection_name="ritvik_kb",            # name must be ASCII
-    persist_directory=str(BASE_DIR / "chroma_db")  # optional, for persistence
+vectordb = Chroma(
+    persist_directory=PERSIST,
+    collection_name="ritvik_kb"
 )
 
 # 6) Expose the retriever method you actually need

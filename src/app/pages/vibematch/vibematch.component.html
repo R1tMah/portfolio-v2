@@ -19,7 +19,22 @@
         *ngFor="let ctl of artists.controls; let i = index">
         <input matInput
                placeholder="Artist {{ i + 1 }}"
-               [formControlName]="i" />
+               [formControlName]="i" 
+               [matAutocomplete]="auto"
+               />
+               
+ 
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            [displayWith]="displayArtistName"
+          >
+          <mat-option
+            *ngFor="let artist of artistOptions[i] | async"
+            [value]="artist"
+          >
+            {{ artist.name }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </div>
 
