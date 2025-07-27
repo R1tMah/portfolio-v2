@@ -4,17 +4,17 @@ import { HttpClient }   from '@angular/common/http';
 import { Observable }   from 'rxjs';
 import { map }             from 'rxjs/operators';
 import { tap }             from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 export interface Artist { id: string; name: string; image?: string; }
 
 @Injectable({providedIn: 'root'})
 export class SpotifyService {
-  private base = 'http://127.0.0.1:8000';
 
   constructor(private http: HttpClient) {}
 
     searchArtists(q: string, limit = 10) {
     return this.http.get<Artist[]>(
-      `${this.base}/spotify/search`,
+      `${environment.apiBase}/spotify/search`,
       { params: { q, limit: limit.toString() } }
     );
     }
