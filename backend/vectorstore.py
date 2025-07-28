@@ -61,6 +61,5 @@ def get_retriever(k: int = 8):
             persist_directory=str(PERSIST_DIR),
             collection_name="ritvik-kb",
         )
-        vectordb.persist()
 
     return vectordb.as_retriever(search_kwargs={"k": k})
