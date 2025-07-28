@@ -5,6 +5,7 @@ from .helpers import (
   knn_recommend,
   fetch_album_image,
 )
+from starlette.concurrency import run_in_threadpool
 import os
 import re
 import json
@@ -15,7 +16,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict
 from langchain.chains import ConversationalRetrievalChain
-from langchain_community.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
+from langchain_community.document_loaders import TextLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from .vectorstore import get_retriever
 from dotenv import load_dotenv
 from langchain.prompts import PromptTemplate
@@ -31,6 +34,8 @@ from typing              import List
 from pathlib import Path
 from typing import Any, List
 from pydantic import BaseModel
+from langchain_openai import OpenAIEmbeddings
+from langchain_chroma import Chroma
 
 
 '''
@@ -47,10 +52,6 @@ nn = NearestNeighbors(
     algorithm="auto"
 ).fit(X)
 '''
-HERE = Path(__file__).resolve().parent
-env_path = HERE / ".env"
-print(f"🔍 Loading env from: {env_path}")
-# 1) Load environment and OpenAI key
 load_dotenv()
 CLIENT_ID     = os.getenv("SPOTIFY_CLIENT_ID")
 CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
@@ -59,8 +60,46 @@ print("🔑 SPOTIFY_CLIENT_SECRET:", CLIENT_SECRET and "••••••••
 
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
+BASE_DIR   = Path(__file__).parent
+DOC_PATHS  = [ BASE_DIR / "docs" / fn for fn in (
+    "bio.txt","education.txt","projects-summary.txt","experience_summary.txt",
+    "new_experience.txt","projects.txt","skills.txt","contact-info.txt","personal.txt",
+) ]
+splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+# initialize once at startup
+all_chunks = []
+for p in DOC_PATHS:
+    if not p.exists():
+        raise FileNotFoundError(f"Missing document: {p}")
+    all_chunks.extend(
+      splitter.split_documents(TextLoader(str(p), encoding="utf-8").load())
+    )
+doc_texts   = [c.page_content for c in all_chunks]
+print(f"🔍 Loaded {len(doc_texts)} document chunks")
+
+resp = openai.embeddings.create(
+  model="text-embedding-ada-002",
+  input=doc_texts
+)
+doc_vectors = [d.embedding for d in resp.data]
+print("🔍 Precomputed embeddings for all chunks")
+HERE = Path(__file__).resolve().parent
+env_path = HERE / ".env"
+print(f"🔍 Loading env from: {env_path}")
+# 1) Load environment and OpenAI key
+
+
 _token: str = None
 _token_expires_at = 0
+
+def sync_retrieve(question: str):
+    # create & use the retriever in this thread
+    retr = get_retriever(k=5)
+    return retr.get_relevant_documents(question)
+
+def sync_chat(request_dict: dict) -> dict:
+    # synchronous chain.invoke does both retrieval and LLM
+    return chat_chain.invoke(request_dict)
 
 def get_spotify_token():
     global _token, _token_expires_at
@@ -80,11 +119,15 @@ def get_spotify_token():
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200", "https://ritvik-mahapatra.netlify.app"],  # during dev
+    allow_origins=["http://localhost:4200", "https://ritvik-mahapatra.netlify.app", "http://127.0.0.1:4200"],  # during dev
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/health")
+def health():
+    return {"ok": True}
 template = """You are Ritvik’s personal AI assistant. Use the retrieved documents to answer the user as if you are Ritvik Mahapatra himself. Be concise and factual. Don't say Answer:, just respond with the answer"""
 qa_prompt = PromptTemplate.from_template(template + "\n\nQuestion: {question}\n\n{context}")
 # 3) Models for /chat
@@ -150,23 +193,85 @@ class VibeRecResponse(BaseModel):
 # 5) Initialize your retrieval‑augmented chain
 llm_model = ChatOpenAI(model_name="gpt-4", temperature=0)
 retriever  = get_retriever(k=5)
-chat_chain = ConversationalRetrievalChain.from_llm(llm_model, retriever,return_source_documents=True,  combine_docs_chain_kwargs={"prompt": qa_prompt})
-
+chat_chain = ConversationalRetrievalChain.from_llm(
+  llm_model,
+  retriever,
+  return_source_documents=True,
+  combine_docs_chain_kwargs={"prompt": qa_prompt},
+)
 # 6) /chat endpoint
+'''
 @app.post("/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest):
-    result = await chat_chain.acall({
-        "question": req.question,
-        "chat_history": req.chat_history
-    })
-    print(result.keys())
-    for doc in result["source_documents"]:
-        print(doc.metadata["source"])
-    return ChatResponse(
-        answer       = result["answer"],
-        chat_history = result["chat_history"]
+    print("🥊 got stub chat req:", req)
+    # immediately return
+    return ChatResponse(answer="pong", chat_history=req.chat_history)
+'''
+@app.get("/test-openai")
+def test_openai():
+    print("🔍 Calling OpenAI ChatCompletion.create…")
+    resp = openai.chat.completions.create(
+        model="gpt-3.5-turbo",                     # use a model you definitely have access to
+        messages=[{"role":"user","content":"Hello"}],
+        temperature=0
     )
+    reply = resp.choices[0].message.content
+    print("✅ Received:", reply)
+    return {"reply": reply}
+@app.post("/chat", response_model=ChatResponse)
+async def chat(req: ChatRequest):
+    try:
+        print("🔔 GOT /chat:", req.question)
 
+        # A) Embed the incoming question
+        q_emb =  openai.embeddings.create(
+            model="text-embedding-ada-002",
+            input=[req.question]
+        )
+        q_vec = q_emb.data[0].embedding
+        print("   ✓ got query embedding")
+
+        # B) Compute cosine similarity against all doc chunks
+        doc_mat = np.vstack(doc_vectors)                  # shape (N, D)
+        norms   = np.linalg.norm(doc_mat, axis=1)          # shape (N,)
+        q_norm  = np.linalg.norm(q_vec)
+        sims    = (doc_mat @ q_vec) / (norms * q_norm)     # shape (N,)
+        topk_ix = sims.argsort()[::-1][:5]
+        retrieved_texts = [doc_texts[i] for i in topk_ix]
+        print(f"   ✓ retrieved {len(retrieved_texts)} chunks")
+
+        # C) Build your context
+        context = "\n\n---\n\n".join(retrieved_texts)
+
+        # D) Call the ChatCompletion API
+        system_prompt = (
+            "You are Ritvik’s personal assistant. "
+            "Use the context to answer concisely and factually. "
+            "Don’t say “Answer:”."
+        )
+        user_prompt = (
+            f"{system_prompt}\n\n"
+            f"Question: {req.question}\n\n"
+            f"Context:\n{context}"
+        )
+        chat_resp =  openai.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role":"system","content":system_prompt},
+                {"role":"user","content":user_prompt}
+            ],
+            temperature=0
+        )
+        answer = chat_resp.choices[0].message.content.strip()
+        print("   ✓ LLM answered")
+
+        # E) Return and append to history
+        new_history = req.chat_history + [(req.question, answer)]
+        return ChatResponse(answer=answer, chat_history=new_history)
+
+    except Exception as e:
+        print("💥 ERROR /chat:", repr(e))
+        raise HTTPException(status_code=500, detail=str(e))
 # 7) Pre‑baked tier list for VibeMatch
 TIER_LIST = [
   "Drake - Tier 1 ", "Juice WRLD - Tier 1", "Travis Scott - Tier 2", "Don Toliver - Tier 2", "Daniel Caesar - Tier 2",

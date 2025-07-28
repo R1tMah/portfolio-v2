@@ -26,7 +26,9 @@ export interface VibeMatchRes {
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
+  
   constructor(private http: HttpClient) {}
+  
   vibematch(req: VibeMatchReq) {
     return this.http.post<VibeMatchRes>(
       `${environment.apiBase}/vibematch`,
@@ -34,6 +36,7 @@ export class ApiService {
     );
   }
   chat(req: ChatRequest) {
+    console.log('Calling API:', `${environment.apiBase}/chat`, req);
     return this.http.post<ChatResponse>(
       `${environment.apiBase}/chat`,
       req
