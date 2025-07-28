@@ -2,9 +2,13 @@ fastapi
 uvicorn[standard]
 python-dotenv
 openai
-langchain
-langchain-community
-chromadb
-tiktoken
+requests
+numpy
 pandas
 scikit-learn
+tiktoken
+langchain
+langchain-community
+langchain-openai
+langchain-chroma
+chromadb
