@@ -8,12 +8,15 @@ html, body {
   font-family: 'Roboto Mono', monospace; /* your techy font */
 }
 
+
 /* 2) Base dark backdrop */
 body {
   background-color: #0a0a0f;
   position: relative;
   overflow-x: hidden;
   color: #e0e0e0;
+
+
 }
 
 /* 3) Starfield layer behind everything */
@@ -44,6 +47,8 @@ a {
 a:hover {
   color: #c3e88d;
 }
+
+
 
 /* 6) Twinkle animation */
 @keyframes twinkle {
