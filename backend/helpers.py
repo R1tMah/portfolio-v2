@@ -36,7 +36,7 @@ weights = np.array([  # same order as your FEATURE_COLS
     10.0, #pop
     3.0, #rnb
     1.0, #jamaican
-    4.0, #kpop
+    20.0, #kpop
     1.0, #indie
 ])
 
@@ -45,7 +45,7 @@ df = pd.read_csv(CSV_PATH)
 FEATURE_COLS = [c for c in df.columns if c not in ("id","title","artist","score")]
 X = df[FEATURE_COLS].to_numpy()
 X_weighted = X * weights   # elementwise multiply each column
-_knn = NearestNeighbors(n_neighbors=10, metric="cosine")
+_knn = NearestNeighbors(n_neighbors=12, metric="cosine")
 _knn.fit(X_weighted)
 
 CATEGORIES = [
@@ -59,7 +59,7 @@ def build_prompt(artist):
 Assign percentage values across the following 15 categories for the following artists: {artist}. 
 The categories are: {", ".join(CATEGORIES)}.
 Each value should be a number between 0 and 100
-Give Pop artists lower lyrical scores, when I say lyrical I'm mostly talking about rap
+Give Pop artists lower lyrical scores, when I say lyrical I'm mostly talking about rap. However, if a rapper isn't like a bar rapper, then give it lower lyrical scores. When I say rap I'm talking about bars like Kendrick or J.Cole, not Travis Scott or Don Toliver as much
 Respond in this exact JSON format and make guesses if needed, do not say any other words or deny:
 {{
   "upbeat": 0,
@@ -157,9 +157,39 @@ def knn_recommend(feature_dicts: List[Dict[str,int]]) -> List[Dict]:
 def fetch_album_image(title: str, artist: str) -> str:
     # hits your FastAPI /spotify/search which returns [{id,name,image},...]
     url = os.getenv("BACKEND_URL", "http://127.0.0.1:8000") + "/spotify/search"
-    resp = requests.get(url, params={"q": f"{title} {artist}", "limit": 1})
+    resp = requests.get(url, params={"q": f"{artist}", "limit": 1})
     resp.raise_for_status()
     data = resp.json()
     if data and data[0].get("image"):
         return data[0]["image"]
     return None
+
+def knn_recs_per_artist(
+    feature_dicts: List[Dict[str, any]],
+    top_k: int = 3
+) -> Dict[str, List[Dict[str, any]]]:
+    """
+    For each artist in feature_dicts, run KNN on that artist's
+    weighted feature vector and return a list of top_k recs.
+    """
+    recs_by_artist = {}
+    for feat in feature_dicts:
+        name = feat["name"]
+        # 1) Build the raw feature vector and weight it
+        vec = np.array(list(feat["features"].values())) * weights
+        
+        # 2) Query the KNN model
+        dists, idxs = _knn.kneighbors(vec.reshape(1, -1), n_neighbors=top_k)
+        
+        # 3) Turn those into your rec dicts
+        recs = []
+        for dist, idx in zip(dists[0], idxs[0]):
+            row = df.iloc[idx]
+            recs.append({
+                "title":     row["title"],
+                "artist":    row["artist"],
+                "sim_score": float(1 - dist),
+            })
+        
+        recs_by_artist[name] = recs
+    return recs_by_artist

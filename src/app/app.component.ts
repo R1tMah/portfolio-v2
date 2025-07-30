@@ -3,15 +3,19 @@ import { HeaderComponent } from './layout/header/header.component';
 import { Component, AfterViewInit, HostListener, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FooterComponent } from './layout/footer/footer.component';
+import { environment } from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from './services/api.service';
 
 @Component({
   standalone: true,
-  imports: [ HeaderComponent, RouterOutlet, FooterComponent],
+  imports: [ HeaderComponent, RouterOutlet, FooterComponent, HttpClientModule,],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrls: ['./app.scss']
 })
 export class AppComponent implements AfterViewInit {
+  constructor(private api: ApiService) {}
   private platformId = inject(PLATFORM_ID);
   private isBrowser = isPlatformBrowser(this.platformId);
   private canvas!: HTMLCanvasElement;
@@ -25,6 +29,10 @@ export class AppComponent implements AfterViewInit {
       // skip starfield logic on server
       return;
     }
+    this.api.healthCheck().subscribe({
+      next: () => console.log('💚 Backend is awake'),
+      error: err => console.warn('⚠️ Health check failed', err),
+    });
     this.canvas = document.getElementById('starfield') as HTMLCanvasElement;
     this.ctx = this.canvas.getContext('2d')!;
     this.resize();

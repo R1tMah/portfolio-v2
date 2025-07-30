@@ -80,8 +80,10 @@ export class VibematchComponent {
 
     this.loading = true;
    
-    const artistObjs = this.artists.value as Artist[];
-    const artistNames = artistObjs.map(a => a.name);
+    const raw = this.artists.value as (string | Artist)[];
+    const artistNames = raw.map(a =>
+      typeof a === 'string' ? a.trim() : a.name
+    );
     const payload = { artists: artistNames };
 
     this.api.vibematch(payload).subscribe({

@@ -9,6 +9,12 @@ export interface ChatRequest {
   question: string;
   chat_history: any[];
 }
+export interface Rec {
+  title: string;
+  artist: string;       // JSON‑stringified array sometimes or single name
+  album_image: string;  // you can ignore or show a placeholder
+  sim_score: number;
+}
 
 export interface ChatResponse {
   answer: string;
@@ -22,6 +28,7 @@ export interface VibeMatchReq {
 export interface VibeMatchRes {
   score: number;
   caption: string;
+  recommendations: Rec[];
 }
 
 @Injectable({ providedIn: 'root' })
@@ -31,7 +38,7 @@ export class ApiService {
   
   vibematch(req: VibeMatchReq) {
     return this.http.post<VibeMatchRes>(
-      `${environment.apiBase}/vibematch`,
+      `${environment.apiBase}/vibe-and-recommend`,
       req
     );
   }
@@ -41,5 +48,8 @@ export class ApiService {
       `${environment.apiBase}/chat`,
       req
     );
+  }
+  healthCheck(): Observable<{ ok: boolean }> {
+    return this.http.get<{ ok: boolean }>(`${environment.apiBase}/health`);
   }
 }

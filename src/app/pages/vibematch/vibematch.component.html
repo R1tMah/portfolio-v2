@@ -1,5 +1,5 @@
 <!-- src/app/pages/vibematch/vibematch.component.html -->
- <div class="typewriter-container">
+<div class="typewriter-container">
   <h2 class="typewriter-heading">This is VibeMatch</h2>
 </div>
 <div class="typewriter-full">
@@ -7,7 +7,7 @@
     This is a place where we can compare our music tastes. 
   </span><br>
   <span class="line2">
-    I listen to primarily Rap and R&B. Input your 5 favorite artists below to see how well we match
+    I listen to primarily Rap and R&B. Input your 5 favorite artists below to see how well we match... and maybe I can put you on
   </span>
 </div>
 <mat-card class="vibe-card">
@@ -36,6 +36,7 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+
     </div>
 
     <button mat-raised-button color="primary" [disabled]="loading">
@@ -48,6 +49,13 @@
           diameter="20"
           mode="indeterminate">
         </mat-progress-spinner>
+        <div class="typewriter-full">
+          <br>
+          <span class="line3">
+            Generating music recommendations... this might take around 30 seconds
+          </span><br>
+        </div>
+        <p></p>
       </ng-template>
     </button>
   </form>
@@ -55,5 +63,21 @@
   <div *ngIf="result" class="result">
     <h3>Your Score: {{ result.score }} / 100</h3>
     <p>{{ result.caption }}</p>
+  </div>
+  <div *ngIf="result?.recommendations?.length" class="recommendations">
+    <h4>Top Matches</h4>
+    <div class="rec-grid">
+      <mat-card *ngFor="let rec of result?.recommendations" class="rec-card">
+        <!-- album_image may be null for now -->
+        <img mat-card-image
+             [src]="rec.album_image || 'assets/placeholder.png'"
+             alt="{{ rec.title }}"
+             class="rec-image"/>
+        <mat-card-content>
+          <h5>{{ rec.title }}</h5>
+          <p class="artist">{{ rec.artist }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </mat-card>

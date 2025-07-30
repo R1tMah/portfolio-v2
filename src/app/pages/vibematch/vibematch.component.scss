@@ -128,7 +128,23 @@ $beige: #c3e88d;
       typing2 5s steps(90, end) forwards 9s,
       blinkCaret 0.75s step-end infinite 5s;
   }
+    .line3 {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #80cbc4;  /* same cursor color */
+    width: 0ch;
+    /* 
+      steps(N, end) where N ≈ number of characters in the string (≈69 here)
+      delay it a bit if you want to start after line2 finishes,
+      or 0s for immediate start.
+    */
+    animation:
+      typing3   3s steps(70, end) forwards 0s,
+      blink-caret 0.75s step-end infinite 3s;
+  }
 }
+
 /* Reveal one character at each step */
 @keyframes typing {
   from { width: 0 }
@@ -140,7 +156,11 @@ $beige: #c3e88d;
 }
 @keyframes typing2 {
   from { width: 0ch; }
-  to   { width: 96ch ; } /* match the number of chars in line2 */
+  to   { width: 127ch ; } /* match the number of chars in line2 */
+}
+@keyframes typing3 {
+  from { width: 0ch; }
+  to   { width: 70ch; } /* match the character count of your line */
 }
 
 @keyframes hideCaret {
@@ -164,4 +184,31 @@ $beige: #c3e88d;
     animation: none !important;
     font-size: 1rem;       /* scale down if needed */
   }
+}
+
+.recommendations {
+  margin-top: 1rem;
+}
+.rec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+.rec-card {
+  text-align: center;
+  color: #3f51b5; 
+  background-color: #e9de9c;
+}
+.rec-image {
+  height: 100px;
+  object-fit: cover;
+}
+.artist {
+  font-style: italic;
+  margin: 0.5rem 0 0.25rem;
+  color: #67100a;
+}
+.score {
+  font-weight: bold;
+  color: #3f51b5;
 }

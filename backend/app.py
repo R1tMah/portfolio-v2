@@ -4,6 +4,7 @@ from .helpers import (
   extract_features_with_agent,
   knn_recommend,
   fetch_album_image,
+  knn_recs_per_artist
 )
 from starlette.concurrency import run_in_threadpool
 import os
@@ -94,7 +95,7 @@ _token_expires_at = 0
 
 def sync_retrieve(question: str):
     # create & use the retriever in this thread
-    retr = get_retriever(k=5)
+    retr = get_retriever(k=10)
     return retr.get_relevant_documents(question)
 
 def sync_chat(request_dict: dict) -> dict:
@@ -192,7 +193,7 @@ class VibeRecResponse(BaseModel):
     recommendations: List[RecOut]
 # 5) Initialize your retrieval‑augmented chain
 llm_model = ChatOpenAI(model_name="gpt-4", temperature=0)
-retriever  = get_retriever(k=5)
+retriever  = get_retriever(k=10)
 chat_chain = ConversationalRetrievalChain.from_llm(
   llm_model,
   retriever,
@@ -236,7 +237,7 @@ async def chat(req: ChatRequest):
         norms   = np.linalg.norm(doc_mat, axis=1)          # shape (N,)
         q_norm  = np.linalg.norm(q_vec)
         sims    = (doc_mat @ q_vec) / (norms * q_norm)     # shape (N,)
-        topk_ix = sims.argsort()[::-1][:5]
+        topk_ix = sims.argsort()[::-1][:3]
         retrieved_texts = [doc_texts[i] for i in topk_ix]
         print(f"   ✓ retrieved {len(retrieved_texts)} chunks")
 
@@ -255,7 +256,7 @@ async def chat(req: ChatRequest):
             f"Context:\n{context}"
         )
         chat_resp =  openai.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=[
                 {"role":"system","content":system_prompt},
                 {"role":"user","content":user_prompt}
@@ -313,7 +314,7 @@ User's 5 favorites: {', '.join(req.artists)}
 #     name="static",
 # )
 @app.get("/spotify/search")
-def spotify_search(q: str, limit: int = 10):
+def spotify_search(q: str, limit: int = 15):
     token = get_spotify_token()
     print(CLIENT_ID)
     resp = requests.get(
@@ -359,18 +360,19 @@ def vibe_and_recommend(req: VibeMatchReq):
     feats     = list(extract_features_with_agent(artists))    # e.g. [ {"name":"Drake","features":{…}}, … ]
 
     # 3) Run KNN on *just* the feature vectors
-    raw_recs       = knn_recommend(feats) 
+    raw_recs       =  knn_recs_per_artist(feats, top_k=3)
 
     # 4) Enrich with album art and pack into your RecOut schema
-    recs = []
-    for r in raw_recs:
-        img = fetch_album_image(r["title"], r["artist"])
-        recs.append(RecOut(
-            title      = r["title"],
-            artist     = r["artist"],
-            album_image= img,
-            sim_score  = r["sim_score"],
-        ))
+    recs: List[RecOut] = []
+    for artist_name, rec_list in raw_recs.items():
+        for r in rec_list:
+            img = fetch_album_image(r["title"], r["artist"])
+            recs.append(RecOut(
+                title       = r["title"],
+                artist      = r["artist"],
+                album_image = img,
+                sim_score   = r["sim_score"],
+            ))
 
     return VibeRecResponse(
         score           = vm["score"],
