@@ -32,7 +32,7 @@ weights = np.array([  # same order as your FEATURE_COLS
     2.0, #chill
     2.0, #reflective
     0.25, #energetic
-    1.0, #trap_drill
+    4.0, #trap_drill
     10.0, #pop
     3.0, #rnb
     1.0, #jamaican
