@@ -10,7 +10,7 @@ interface ExperienceEntry {
   projects?:    string[];     // project names
   courses?:     string[];     // course codes or titles
   certs?:       string[];     // e.g. "AWS Certified…"
-  employer?:   string;       // optional place you worked
+  employer?:   string[];       // optional place you worked
 }
 
 @Component({
@@ -51,49 +51,49 @@ export class ExperienceComponent {
     },
         {
       monthLabel: 'Jan 2024',
-      employer:   'STEM-E Web Development (Intern)',
+      employer:   ['STEM-E Web Development (Intern)'],
       projects:   ['MindMap'],
       courses:    ['CMSC216: Computer Systems with C and Assembly', 'CMSC250: Discrete Structures'],
     },
         {
       monthLabel: 'Feb 2024',
-      employer:   'STEM-E Web Development (Intern)',
+      employer:   ['STEM-E Web Development (Intern)'],
       projects:   ['MindMap'],
       courses:    ['CMSC216: Computer Systems with C and Assembly', 'CMSC250: Discrete Structures'],
     },
         {
       monthLabel: 'Mar 2024',
-      employer:   'STEM-E Web Development (Intern)',
+      employer:   ['STEM-E Web Development (Intern)'],
       projects:   ['MindMap'],
       courses:    ['CMSC216: Computer Systems with C and Assembly', 'CMSC250: Discrete Structures'],
     },
         {
       monthLabel: 'Apr 2024',
-      employer:   'STEM-E Web Development (Intern)',
+      employer:   ['STEM-E Web Development (Intern)'],
       projects:   ['MindMap'],
       courses:    ['CMSC216: Computer Systems with C and Assembly', 'CMSC250: Discrete Structures'],
     },
         {
       monthLabel: 'May 2024',
-      employer:   'STEM-E Web Development (Intern)',
+      employer:   ['STEM-E Web Development (Intern)'],
       projects:   ['MindMap', "NBA Game Predictor"],
       courses:    ['CMSC216: Computer Systems with C and Assembly', 'CMSC250: Discrete Structures'],
     },
         {
       monthLabel: 'Jun 2024',
-      employer:   'STEM-E Web Development (Intern)',
+      employer:   ['STEM-E Web Development (Intern)'],
       projects:   ['MindMap', "NBA Game Predictor"],
       certs:      ['IBM Introduction to Software Engineering', 'IBM Introduction to HTML, CSS, & JavaScript']
     },
         {
       monthLabel: 'Jul 2024',
-      employer:   'STEM-E Web Development (Intern)',
+      employer:   ['STEM-E Web Development (Intern)'],
       projects:   ['MindMap', "NBA Game Predictor", "TuneTonic"],
       certs:      ['IBM Getting Started with Git and GitHub', 'IBM JavaScript Programming Essentials']
     },
         {
       monthLabel: 'Aug 2024',
-      employer:   'STEM-E Web Development (Intern)',
+      employer:   ['STEM-E Web Development (Intern)'],
       projects:   ['MindMap', "TuneTonic"],
       certs:      ['IBM Developing Front-End Apps with React']
     },
@@ -119,51 +119,59 @@ export class ExperienceComponent {
     },
         {
       monthLabel: 'Jan 2025',
-      employer:   'Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)',
+      employer:   ['Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)'],
       projects:   ["XFoundry"],
       courses:    ['CMSC320: Intro to Data Science with Python', 'CMSC452: Elementary Theory of Computation',  "ECON306: Microeconomics"],
       certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course']
     },
         {
       monthLabel: 'Feb 2025',
-      employer:   'Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)',
+      employer:   ['Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)'],
       projects:   ["XFoundry", "Data Science Attrition Analysis"],
       courses:    ['CMSC320: Intro to Data Science with Python', 'CMSC452: Elementary Theory of Computation',  "ECON306: Microeconomics"],
       certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course']
     },
         {
       monthLabel: 'Mar 2025',
-      employer:   'Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)',
+      employer:   ['Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)'],
       projects:   ["Telecommunication Churn Analysis", "VoiceVilla"],
       courses:    ['CMSC320: Intro to Data Science with Python', 'CMSC452: Elementary Theory of Computation', "ECON306: Microeconomics"],
       certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course']
     },
         {
       monthLabel: 'Apr 2025',
-      employer:   'Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)',
+      employer:   ['Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)'],
       projects:   ["Fruit Classification", "Author Classification"],
       courses:    ['CMSC320: Intro to Data Science with Python', 'CMSC452: Elementary Theory of Computation',  "ECON306: Microeconomics"],
       certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course']
     },
     {
       monthLabel: 'May 2025',
-      employer:   'Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)',
+      employer:   ['Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)'],
       projects:   ["Boston Marathon Clustering Project", "NLI Analysis Project"],
       courses:    ['CMSC320: Intro to Data Science with Python', 'CMSC452: Elementary Theory of Computation',  "ECON306: Microeconomics"],
       certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course', 'IBM Developing Back-End Apps with Node.js and Express', 'IBM Get Started with Cloud Native, DevOps, Agile, and NoSQL']
     },
     {
       monthLabel: 'Jun 2025',
-      employer:   'Minnodi LLC (AI/MLE Intern)',
+      employer:   ['Minnodi LLC (AI/MLE Intern)'],
       projects:   ["SQuAD Datasetet RAG-A Pipeline"],
       certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course', 'IBM Introduction to Containers w/ Docker, Kubernetes & OpenShift', 'IBM Application Development using Microservices and Serverless']
     },
     {
       monthLabel: 'Jul 2025',
-      employer:   'Minnodi LLC (AI/MLE Intern)',
+      employer:   ['Minnodi LLC (AI/MLE Intern)'],
       projects:   ["Ritvik's Portfolio v2 (with Angular)", "GiftLink"],
       certs:      ['IBM Node.js & MongoDB: Developing Back-end Database Applications', 'IBM Full Stack Developer Course fully completed (12 courses)']
-    }
+    },
+    {
+      monthLabel: 'Aug 2025',
+      employer:   ['Minnodi LLC (AI/MLE Intern)', 'Campus Coders Crew'],   
+    },
+    {
+      monthLabel: 'Sep 2025',
+      employer:   ['SENS Psychology', 'Campus Coders Crew'],   
+    } 
   ];
 }
 
