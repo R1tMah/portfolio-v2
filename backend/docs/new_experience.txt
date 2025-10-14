@@ -3,25 +3,43 @@ I am Ritvik.
 These are all experiences I did, if someone asks about them describe them in full
 
 Experience 1: 
+Software Engineering Intern: SENS Psychology September 2025 – Present
+● Developed a full-stack web application with Next.js, Node.js, TypeScript, and PostgreSQL to deliver relationship
+communication insights through Typeform-driven quizzes and dynamic data visualization, scaling to 1,000+ projected users
+● Built an internal dashboard for front desk staff to manage consultations, replacing legacy spreadsheets with a unified system,
+developing backend jobs/agents to automate record updates, saving 10+ hours/week in manual data entry.
+● Researched and implemented AI-powered marketing strategies, leveraging algorithms for consumer behavior prediction and
+blog content generation; projected to boost content efficiency by 35% and improve engagement through A/B testing.
 
-Minnodi LLC                                                                                          	     	  Frederick, Maryland
-AI/ML Engineer Intern                                                                          	                                 June 2025- August 2025
-Designed a natural language-driven assistant for users with disabilities to complete complex online tasks, using LangChain, Browser Use, and Gemini agents to automate 16–28 step workflows across ~20 sites like Amazon, Expedia, and UberEats.
-Developed task planning strategies to dynamically identify and interact with UI elements; tuned prompt formats for ~30 different task types including flight booking, food ordering, and multi-item cart addition, decreasing average steps by ~45%.
-Integrated Monte Carlo Tree Search-based reinforcement learning into agent planning, enabling adaptive long-horizon task execution and improving task success rates on multi-page workflows by ~12%.
-Collaborated on frontend integration using React.js and ElevenLabs TTS, enhancing accessibility and user experience.
 
 Experience 2: 
-Booz-Allen Hamilton – App Dev Club                                        		           College Park, Maryland
-Full Stack Developer                                                                                            	      	  January 2025-May 2025
-Collaborated on a 10-person Agile team to architect a containerized Next.js application that automates insurance policy auditing, saving Booz-Allen Hamilton an estimated $50,000. 
-Designed and implemented backend search and filter APIs leveraging PostgreSQL full-text search, enabling efficient partial and fuzzy text matching for rapid policy retrieval and improved user experience.
-Engineered an OCR pipeline with Tesseract-OCR and OpenCV, preprocessing scanned insurance documents and extracting structured data with high accuracy for downstream processing.
-Built a scalable, event-driven data processing pipeline using AWS Lambda, EC2, SQS, and S3 buckets, orchestrating the queuing of 500+ sample policy documents from an RDS instance for automated extraction, storage, and summarization
+Technical Project Lead: UMD School of Business – App Dev Club September 2025 – Present
+● Led a 15-person cross-functional team to develop a financial planning mobile app with React Native, Flask, and Firebase for
+UMD’s Financial Wellness Center, expected to premiere at Maryland Day to 40,000+ users in modeling savings outcomes.
+● Spearheaded development of core Python-based backend services, including Monte Carlo simulation pipelines, side-by-side
+scenario dashboards, and survey-driven recommendation engines that match students to relevant finance courses.
+● Implemented analytics and data instrumentation layers to track decision-making patterns, investment projections, and daily
+challenge engagement, powering privacy-aware recommendations and boosting financial-literacy engagement by ~25%.
 
 Experience 3: 
-STEM-E Youth Development Center 			               	                                           Remote 
-Software Developer Intern                                                                                                     January 2024-August 2024
-Remotely worked with a group of fellow interns using HTML, CSS, and JavaScript to implement a working prototype for a web application that takes in notes and summarizes them by around 50%, and returns quizzes relating to the information given in the notes for an estimated 100+ users. 
-Worked on over 10 Figma wireframe designs for different web applications with other interns. 
+AI/ML Engineer Intern: Minnodi LLC June 2025 – August 2025
+● Designed a Dockerized RESTful FastAPI backend for a multi-agent AI voice assistant (LangChain, Browser-Use, and
+Gemini), automating 16–50 step workflows across 20 websites (Amazon, Target, Expedia) for consumers with disabilities.
+● Optimized task planning by tuning Python agent behaviors and refining orchestration logic for 30+ complex task types,
+cutting average workflow steps by ~25% and reducing task latency by 30%.
+● Enhanced multi-agent architecture with Pydantic-based planner/verification agents and ElevenLabs text-to-speech
+integration, benchmarking 10 models to streamline narration, planning, and execution, improving completion speed by 10%.
 
+Experience 4: 
+Full-Stack Developer: Booz Allen Hamilton – App Dev Club February 2025 – May 2025
+● Architected a containerized Next.js app that automates insurance policy auditing, saving $50,000 in development costs.
+● Innovated a scalable, event-driven ETL pipeline using AWS Lambda, EC2, SQS, and S3 buckets, orchestrating the queuing
+of 500+ sample policy documents from a PostgreSQL database for automated extraction and summarization
+● Engineered Optical Character Recognition (OCR) and Natural Language Processing (NLP) pipelines with Tesseract-OCR,
+OpenCV, BART, and GLiNER, processing scanned documents and saving 12+ hours/week for auditors.
+
+Experience 5: 
+Software Development Intern: STEM-E Youth Development Center January 2024 - August 2024
+● Spearheaded development of a note-summarization web application for students using React.js and the Gemini API, enabling
+~50% text compression and automatically generating quizzes to reinforce comprehension for learners.
+● Constructed and refined 10+ high-fidelity Figma prototypes, creating designs that optimized note-taking and quiz creation.

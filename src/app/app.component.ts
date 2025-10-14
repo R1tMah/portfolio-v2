@@ -1,12 +1,13 @@
 import { RouterOutlet, NavigationEnd  } from '@angular/router';
 import { HeaderComponent } from './layout/header/header.component';
 import { Component, AfterViewInit, HostListener, inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT ,isPlatformBrowser } from '@angular/common';
 import { FooterComponent } from './layout/footer/footer.component';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
-
+import { Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 @Component({
   standalone: true,
   imports: [ HeaderComponent, RouterOutlet, FooterComponent, HttpClientModule,],
@@ -22,11 +23,17 @@ export class AppComponent implements AfterViewInit {
   private ctx!: CanvasRenderingContext2D;
   private stars: { x: number; y: number; r: number; alpha: number; dAlpha: number }[] = [];
   private numStars = 200;
+  private router = inject(Router);
+  private doc = inject(DOCUMENT);
+  
   
 
   ngAfterViewInit() {
      if (!this.isBrowser) {
       // skip starfield logic on server
+      return;
+    }
+    if (!isPlatformBrowser(this.platformId)) {
       return;
     }
     this.api.healthCheck().subscribe({
@@ -38,6 +45,14 @@ export class AppComponent implements AfterViewInit {
     this.resize();
     this.initStars();
     requestAnimationFrame(this.animate.bind(this));
+    this.router.events.pipe(filter(e => e instanceof NavigationEnd))
+        .subscribe(() => {
+          // turn off smooth behavior for this programmatic jump
+          (this.doc.documentElement as HTMLElement).style.scrollBehavior = 'auto';
+          window.scrollTo({ top: 0, left: 0 });
+          // restore whatever CSS you had
+          (this.doc.documentElement as HTMLElement).style.scrollBehavior = '';
+        });
   }
 
   @HostListener('window:resize')

@@ -155,7 +155,7 @@ export class ExperienceComponent {
     {
       monthLabel: 'Jun 2025',
       employer:   ['Minnodi LLC (AI/MLE Intern)'],
-      projects:   ["SQuAD Datasetet RAG-A Pipeline"],
+      projects:   ["SQuAD Dataset RAG-A Pipeline"],
       certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course', 'IBM Introduction to Containers w/ Docker, Kubernetes & OpenShift', 'IBM Application Development using Microservices and Serverless']
     },
     {
@@ -170,7 +170,13 @@ export class ExperienceComponent {
     },
     {
       monthLabel: 'Sep 2025',
-      employer:   ['SENS Psychology', 'Campus Coders Crew'],   
+      employer:   ['SENS Psychology', 'Campus Coders Crew', 'App Dev Club (Technical Project Lead) @ UMD Business School'], 
+      courses:    ['CMSC422: Machine Learning', 'CMSC434: Human Computer Interaction', 'STAT401: Advanced Statistics'],   
+    },
+    {
+      monthLabel: 'Oct 2025',
+      employer:   ['SENS Psychology', 'Campus Coders Crew', 'App Dev Club (Technical Project Lead) @ UMD Business School'], 
+      courses:    ['CMSC422: Machine Learning', 'CMSC434: Human Computer Interaction', 'STAT401: Advanced Statistics'],  
     } 
   ];
 }

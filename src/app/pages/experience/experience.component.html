@@ -17,6 +17,7 @@
 
   <div class="experience-cards">
     <strong> Experiences </strong>
+    
     <mat-card class="detail-card">
 
       <mat-card-header>
@@ -29,7 +30,26 @@
       </mat-card-header>
       <mat-card-content>
         <ul>
-          <li>Incoming Fall 2025</li>
+          <li>Currently working as a software engineering intern for a psychotherapy practice to help improve processes through software solutions. </li>
+        </ul>
+                <mat-chip-set class="filter-bar">
+         
+      </mat-chip-set>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="detail-card">
+
+      <mat-card-header>
+                      <img
+          class="company-logo"
+          src="assets\umd_business.jpg"
+          alt="Minnodi LLC logo"
+          />
+        <mat-card-title>Project Lead &#64; UMD Business </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul>
+          <li>Currently leading a team of 15 engineers as a part of my App Dev Club to develop an app for the financial wellness center</li>
         </ul>
                 <mat-chip-set class="filter-bar">
          
@@ -48,7 +68,9 @@
       </mat-card-header>
       <mat-card-content>
         <ul>
-          <li>Current Experience</li>
+          <li>Built a React+Tailwind-based website for the BridgeUMD club with ~50 members, implementing reusable components,
+dynamic routing, and mobile-friendly layouts using TypeScript to support event promotion and community engagement</li>
+          
           
         </ul>
                 <mat-chip-set class="filter-bar">
@@ -280,7 +302,7 @@ Software Developer Career Guide and Interview Preparation</li>
           <strong>Month: {{ entry.monthLabel}}</strong>
         </div>
         <div *ngIf="entry.employer?.length">
-          <strong>Work Experience:</strong><ul><li>{{ entry.employer}}</li></ul>
+          <strong>Work Experience:</strong><ul><li *ngFor="let e of entry.employer">{{ e}}</li></ul>
         </div>
         <div *ngIf="entry.projects?.length">
           <strong>Projects:</strong><ul><li *ngFor="let p of entry.projects">{{ p }}</li></ul>
