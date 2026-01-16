@@ -175,9 +175,24 @@ export class ExperienceComponent {
     },
     {
       monthLabel: 'Oct 2025',
-      employer:   ['SENS Psychology', 'Campus Coders Crew', 'App Dev Club (Technical Project Lead) @ UMD Business School'], 
+      employer:   ['SENS Psychology', 'App Dev Club (Technical Project Lead) @ UMD Business School'], 
       courses:    ['CMSC422: Machine Learning', 'CMSC434: Human Computer Interaction', 'STAT401: Advanced Statistics'],  
+    },
+    {
+      monthLabel: 'Nov 2025',
+      employer:   ['SENS Psychology', 'App Dev Club (Technical Project Lead) @ UMD Business School'], 
+      courses:    ['CMSC422: Machine Learning', 'CMSC434: Human Computer Interaction', 'STAT401: Advanced Statistics'],  
+    },
+    {
+      monthLabel: 'Dec 2025',
+      employer:   ['SENS Psychology', 'App Dev Club (Technical Project Lead) @ UMD Business School'], 
+      courses:    ['CMSC422: Machine Learning', 'CMSC434: Human Computer Interaction', 'STAT401: Advanced Statistics'],  
+    }, 
+    {
+      monthLabel: 'Jan 2025',
+      employer:   ['XCL SureStart Mentor'],   
     } 
+
   ];
 }
 
