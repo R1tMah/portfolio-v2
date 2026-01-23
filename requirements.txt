@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+openai
+requests
+numpy
+pandas
+scikit-learn
+tiktoken
+langchain
+langchain-community
+langchain-openai
+langchain-chroma
+chromadb
