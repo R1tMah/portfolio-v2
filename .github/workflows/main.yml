@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Curl health endpoint
-        run: curl -fsS https://YOUR-SERVICE.onrender.com/health > /dev/null
+        run: curl -fsS https://portfolio-v2-backend-m0gp.onrender.com > /dev/null
