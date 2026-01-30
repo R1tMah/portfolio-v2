@@ -19,7 +19,7 @@ from typing import List, Dict
 from langchain_classic.chains import ConversationalRetrievalChain
 from langchain_openai import ChatOpenAI
 from langchain_community.document_loaders import TextLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from .vectorstore import get_retriever
 from dotenv import load_dotenv
 from langchain.prompts import PromptTemplate
