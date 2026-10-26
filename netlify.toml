@@ -1,5 +1,6 @@
 [build]
-  command = "ng build --configuration production"
+  # Validate content first: a bad commit fails the build and the last good deploy stays live.
+  command = "node tools/validate-content.mjs && ng build --configuration production"
   publish = "dist/ritvik-portfolio/browser"
   functions = "dist/ritvik-portfolio/server"
 

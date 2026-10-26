@@ -3,108 +3,60 @@
 <!-- 1) Hero only: headline + picture -->
 <section class="home-hero">
   <div class="hero-text">
-    <h1 class="headline">Hi, I’m <br>Ritvik Mahapatra</h1>
-    <p class="tagline">CS + Econ &#64; UMD | Full‑Stack & ML Engineer</p>
+    <h1 class="headline">
+      <span class="greeting">Hi, I’m</span>
+      <span class="name">Ritvik Mahapatra</span>
+    </h1>
+    <p class="tagline">CS + Econ &#64; UMD | Full‑Stack & AI Engineer</p>
   </div>
   <div class="hero-image">
     <img src="/assets/ritvik-portrait.jpg" alt="Portrait of Ritvik Mahapatra" />
   </div>
 </section>
 
-<!-- 2) Hidden until you scroll: full description + TOC -->
+<!-- 2) Hidden until you scroll: about cards + where to go next -->
 <section class="home-details" #details>
-    <h1 class = "about-me">About Me</h1>
-    <div class="bio-cards">
-        
-    <div class="bio-card">
-        <mat-icon>school</mat-icon>
-        <p>CS major &amp; Econ minor &#64; UMD, graduating December 2026.</p>
-    </div>
-    <div class="bio-card">
-        <mat-icon>code</mat-icon>
-        <p>Built 14 projects across Full Stack Development and Machine Learning</p>
-    </div>
-    <div class="bio-card">
-        <mat-icon>rocket_launch</mat-icon>
-        <p>Architected RAG chatbots &amp; voice‑enabled accessibility tools.</p>
-    </div>
-    <div class="bio-card">
-        <mat-icon>work</mat-icon>
-        <p>Done software and AI work in consulting, finance, psychology, and more!</p>
-    </div>
+  <h2 class="section-heading">About me</h2>
 
-        
-    <div class="bio-card">
-        <mat-icon>computer</mat-icon>
-        <p>Front End Development: React.js/Next.js, Angular & Flutter</p>
-    </div>
-    <div class="bio-card">
-        <mat-icon>developer_board</mat-icon>
-        <p>Backend Development: Node.js, Flask, Express, & FastAPI</p>
-    </div>
-    <div class="bio-card">
-        <mat-icon>insert_drive_file</mat-icon>
-        <p>Databases: PostgreSQL, SQLite, & MongoDB</p>
-    </div>
-    <div class="bio-card">
-        <mat-icon>show_chart</mat-icon>
-        <p>ML Frameworks: PyTorch, TensorFlow, sci-kit-learn, LangChain, and OpenCV </p>
-    </div>
-    </div>
-    
-    <br>
-    <br>
-<h2 class="toc-title">
-    Please feel free to explore the rest of my website!
-</h2>
-  <ul class="toc-list">
-    <li class="toc-item">
-      <mat-icon class="item-icon">timeline</mat-icon>
-      <div class="item-content">
-        <p class="item-title">
-          <a routerLink="/experience" >Experience</a>
-        </p>
-        <p class="item-desc">
-          Interactive timeline of my college career, internships, and coursework.
-        </p>
-      </div>
-    </li>
+  <div class="bio-grid">
+    <mat-card class="home-card" *ngFor="let card of bioCards">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="card-icon">{{ card.icon }}</mat-icon>
+        <mat-card-title>{{ card.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ card.text }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-    <li class="toc-item">
-      <mat-icon class="item-icon">folder_open</mat-icon>
-      <div class="item-content">
-        <p class="item-title">
-          <a routerLink="/projects">Projects</a>
-        </p>
-        <p class="item-desc">
-          A gallery of 14 filterable projects showcasing full‑stack, ML (NLP, RAG, CV), and Data science work.
-        </p>
-      </div>
-    </li>
+  <h2 class="section-heading">Explore the rest of my site</h2>
 
-    <li class="toc-item">
-      <mat-icon class="item-icon">chat</mat-icon>
-      <div class="item-content">
-        <p class="item-title">
-          <a routerLink="/chatbot">Ritvik.AI</a>
-        </p>
-        <p class="item-desc">
-          An RAG‑powered chatbot trained on my resume and project write‑ups.
-        </p>
-      </div>
-    </li>
+  <div class="explore-grid">
+    <mat-card class="home-card link-card" routerLink="/experience">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="card-icon">timeline</mat-icon>
+        <mat-card-title>Experience</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Interactive timeline of my college career, internships, and coursework.</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <a mat-button routerLink="/experience">View experience <mat-icon iconPositionEnd>arrow_forward</mat-icon></a>
+      </mat-card-actions>
+    </mat-card>
 
-    <li class="toc-item">
-      <mat-icon class="item-icon">music_note</mat-icon>
-      <div class="item-content">
-        <p class="item-title">
-          <a routerLink="/vibematch">VibeMatch</a>
-        </p>
-        <p class="item-desc">
-          Compare your favorite artists with mine and get a compatibility score.
-        </p>
-      </div>
-    </li>
-  </ul>
-
+    <mat-card class="home-card link-card" routerLink="/projects">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="card-icon">folder_open</mat-icon>
+        <mat-card-title>Projects</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>A gallery of my projects across the years.</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <a mat-button routerLink="/projects">View projects <mat-icon iconPositionEnd>arrow_forward</mat-icon></a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </section>

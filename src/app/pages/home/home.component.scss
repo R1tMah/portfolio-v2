@@ -28,15 +28,27 @@
     margin-left: 2rem;
 
     .headline {
-      font-size: 3.5rem;
-      margin: 0 0 0.5rem;
-      color: #fbfad1ff;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 3.25rem;
+      line-height: 1.2;
+      margin: 0 0 1rem;
       opacity: 0;
       animation: fadeInRight 1s ease-out forwards;
+
+      .greeting {
+        display: block;
+        color: #e0e0e0;
+      }
+
+      .name {
+        display: block;
+        color: #fbfad1ff;
+      }
     }
 
     .tagline {
-      font-size: 1.25rem;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.1rem;
       color: #80cbc4;
       margin: 0;
       opacity: 0;
@@ -45,145 +57,94 @@
   }
 }
 
-/* 2) Details always visible underneath */
-.home-details{
+/* 2) Details underneath, revealed on scroll */
+.home-details {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 2s ease-out, transform 2s ease-out;
   padding: 4rem 2rem;
   background: rgba(10, 10, 15, 0.65); /* for starfield peek‑through */
-  color: #fbfad1ff;
-  
-  .about-me{
-    color:#80cbc4;
-    text-align: center;
-    animation: 
-        bounce 1s ease-in-out 4.5;
-  }
-  
+  color: #e0e0e0;
+
   &.visible {
     opacity: 1;
     transform: translateY(0);
   }
-  .description-card {
-    max-width: 800px;
-    margin: 0 auto 2rem;
-    padding: 2rem;
-    background: rgba(20,20,30,0.8);
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  
-  
-
-    .description-text {
-        column-count: 3;
-        column-gap: 2rem;
-        line-height: 1.7;
-        & > p {
-            break-inside: avoid;
-            margin-bottom: 1rem;
-     }
-    }
-    }
-
-  .toc {
-    list-style: none;
-    padding: 0;
-    max-width: 400px;
-    margin: 0 auto;
-
-    li {
-      margin-bottom: 0.75rem;
-      a {
-        color: #80cbc4;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s;
-        &:hover {
-          color: #c3e88d;
-        }
-      }
-    }
-  }
 }
 
-.bio-cards {
+/* Same font as the headings on Experience / Projects */
+.section-heading {
+  display: table;
+  margin: 1rem auto 2rem;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #e0e0e0;
+}
+
+.bio-grid,
+.explore-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-  gap: 2rem;
-  margin: 2rem auto;
-  max-width: 1000px;
-
-  .bio-card {
-    background: rgba(20,20,30,0.65);
-    padding: 1rem;
-    border-radius: 0.75rem;
-    text-align: center;
-    line-height: 2.0;
-
-    mat-icon {
-      font-size: 1.5rem;
-      color: #80cbc4;
-      margin-bottom: 1rem;
-    }
-
-    p { margin: 0; color: #e0e0e0; }
-  }
+  gap: 1.5rem;
+  margin: 0 auto 4rem;
 }
 
+.bio-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  max-width: 1100px;
+}
 
+.explore-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  max-width: 800px;
+}
 
-.toc-list {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid rgba(255,255,255,0.1);
+/* Same card styling as the project cards */
+.home-card {
+  background: rgba(20, 20, 30, 0.9);
+  color: #e0e0e0;
 
-  .toc-item {
+  mat-card-title {
+    font-weight: 600;
+    color: #80cbc4;
+  }
+
+  .card-icon {
+    color: #80cbc4;
+    font-size: 28px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(128, 203, 196, 0.12);
+  }
 
-    .item-icon {
-      flex-shrink: 0;
-      width: 36px;
-      height: 36px;
-      margin-right: 1rem;
-      color: #80cbc4;           /* icon color */
-    }
+  mat-card-header {
+    align-items: center;
+    padding-bottom: 0;
+  }
 
-    .item-content {
-      flex: 1;
+  mat-card-content p {
+    margin: 0.5rem 0 0;
+    line-height: 1.6;
+    color: #ccc;
+  }
 
-      .item-title {
-        margin: 0;
-        font-size: 1.1rem;
-        font-weight: 600;
-        a {
-          color: #fbfad1ff;
-          text-decoration: none;
-          &:hover { text-decoration: underline; }
-        }
-      }
-
-      .item-desc {
-        margin: 0.25rem 0 0;
-        font-size: 0.9rem;
-        color: #aaa;
-      }
-    }
+  mat-card-actions a {
+    color: #80cbc4;
   }
 }
 
-.toc-title {
-  text-align: center;
-  font-size: 1.5rem;       /* adjust as needed */
-  font-weight: 500;
-  margin: 2rem 0 1rem;     /* space above & below */
-  color: #fbfad1ff;
-  /* inherits your monospace font from global styles */
+.link-card {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
 }
 
 /* 3) Keyframes */
@@ -208,17 +169,6 @@
   }
 }
 
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(-25%);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: none;
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
-}
-
 /* Responsive tweaks for phones */
 @media (max-width: 600px) {
   .home-hero {
@@ -234,7 +184,7 @@
       margin: 0 auto 1.5rem !important;
       text-align: center;
 
-      .headline { font-size: 2.5rem; }
+      .headline { font-size: 2rem; }
       .tagline  { font-size: 1rem; }
     }
 
@@ -242,4 +192,6 @@
       display: none;  /* hide portrait entirely, so text really centers */
     }
   }
+
+  .section-heading { font-size: 1.5rem; }
 }

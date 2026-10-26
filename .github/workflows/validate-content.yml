@@ -1,0 +1,25 @@
+name: Validate content
+
+# Flags bad commits to the portfolio data (e.g. from another app) with a red X.
+# Netlify runs the same check before building, so bad data never goes live.
+on:
+  push:
+    paths:
+      - 'src/app/data/**'
+      - 'src/assets/**'
+      - 'tools/content-validator.mjs'
+  pull_request:
+    paths:
+      - 'src/app/data/**'
+      - 'src/assets/**'
+      - 'tools/content-validator.mjs'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node tools/validate-content.mjs

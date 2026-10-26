@@ -5,12 +5,33 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule }   from '@angular/material/icon';
 import { MatChipsModule }  from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';  // if you use dialogs
-interface ExperienceEntry {
-  monthLabel: string;       // e.g. "Aug 2023"
-  projects?:    string[];     // project names
-  courses?:     string[];     // course codes or titles
-  certs?:       string[];     // e.g. "AWS Certified…"
-  employer?:   string[];       // optional place you worked
+import { CardSection, CARD_SECTIONS, ExperienceCard, ExperienceEntry } from '../../data/models';
+import timelineData from '../../data/timeline.json';
+import cardsData from '../../data/cards.json';
+
+interface TimelineRow {
+  month: string;
+  label: string;
+  icon: string;
+  items: string[];
+}
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+// monthLabel looks like "Aug 2023"; split on any whitespace so odd spaces don't break it
+const partsOf = (e: ExperienceEntry) => e.monthLabel.trim().split(/\s+/);
+const yearOf  = (e: ExperienceEntry) => Number(partsOf(e)[1]);
+const monthOf = (e: ExperienceEntry) => MONTHS.indexOf(partsOf(e)[0]);
+
+// Show only what mattered most that month: work, else courses, else certs + projects.
+function toRow(e: ExperienceEntry): TimelineRow | null {
+  const month = partsOf(e)[0];
+  if (e.employer?.length) return { month, label: 'Work', icon: 'work', items: e.employer };
+  if (e.courses?.length)  return { month, label: 'Courses', icon: 'school', items: e.courses };
+  const certs = e.certs ?? [], projects = e.projects ?? [];
+  if (!certs.length && !projects.length) return null;
+  const label = certs.length && projects.length ? 'Certs & projects' : certs.length ? 'Certs' : 'Projects';
+  return { month, label, icon: certs.length ? 'workspace_premium' : 'code', items: [...certs, ...projects] };
 }
 
 @Component({
@@ -27,172 +48,34 @@ interface ExperienceEntry {
   styleUrls:   ['./experience.component.scss']
 })
 export class ExperienceComponent {
-  // Chronological list from earliest to latest
-  timeline: ExperienceEntry[] = [
-    {
-      monthLabel: 'Aug 2023',
-      courses:    ['CMSC132: Object Oriented Programming with Java', 'MATH461: Linear Algebra'],
-    },
-    {
-      monthLabel: 'Sep 2023',
-      courses:    ['CMSC132: Object Oriented Programming with Java', 'MATH461: Linear Algebra'],
-    },
-        {
-      monthLabel: 'Oct 2023',
-      courses:    ['CMSC132: Object Oriented Programming with Java', 'MATH461: Linear Algebra'],
-    },
-        {
-      monthLabel: 'Nov 2023',
-      courses:    ['CMSC132: Object Oriented Programming with Java','MATH461: Linear Algebra'],
-    },
-        {
-      monthLabel: 'Dec 2023',
-      courses:    ['CMSC132: Object Oriented Programming with Java', 'MATH461: Linear Algebra'],
-    },
-        {
-      monthLabel: 'Jan 2024',
-      employer:   ['STEM-E Web Development (Intern)'],
-      projects:   ['MindMap'],
-      courses:    ['CMSC216: Computer Systems with C and Assembly', 'CMSC250: Discrete Structures'],
-    },
-        {
-      monthLabel: 'Feb 2024',
-      employer:   ['STEM-E Web Development (Intern)'],
-      projects:   ['MindMap'],
-      courses:    ['CMSC216: Computer Systems with C and Assembly', 'CMSC250: Discrete Structures'],
-    },
-        {
-      monthLabel: 'Mar 2024',
-      employer:   ['STEM-E Web Development (Intern)'],
-      projects:   ['MindMap'],
-      courses:    ['CMSC216: Computer Systems with C and Assembly', 'CMSC250: Discrete Structures'],
-    },
-        {
-      monthLabel: 'Apr 2024',
-      employer:   ['STEM-E Web Development (Intern)'],
-      projects:   ['MindMap'],
-      courses:    ['CMSC216: Computer Systems with C and Assembly', 'CMSC250: Discrete Structures'],
-    },
-        {
-      monthLabel: 'May 2024',
-      employer:   ['STEM-E Web Development (Intern)'],
-      projects:   ['MindMap', "NBA Game Predictor"],
-      courses:    ['CMSC216: Computer Systems with C and Assembly', 'CMSC250: Discrete Structures'],
-    },
-        {
-      monthLabel: 'Jun 2024',
-      employer:   ['STEM-E Web Development (Intern)'],
-      projects:   ['MindMap', "NBA Game Predictor"],
-      certs:      ['IBM Introduction to Software Engineering', 'IBM Introduction to HTML, CSS, & JavaScript']
-    },
-        {
-      monthLabel: 'Jul 2024',
-      employer:   ['STEM-E Web Development (Intern)'],
-      projects:   ['MindMap', "NBA Game Predictor", "TuneTonic"],
-      certs:      ['IBM Getting Started with Git and GitHub', 'IBM JavaScript Programming Essentials']
-    },
-        {
-      monthLabel: 'Aug 2024',
-      employer:   ['STEM-E Web Development (Intern)'],
-      projects:   ['MindMap', "TuneTonic"],
-      certs:      ['IBM Developing Front-End Apps with React']
-    },
-        {
-      monthLabel: 'Sep 2024',
-      projects:   ['MindMap', 'TuneTonic', 'Portfolio v1 (with React)'],
-      courses:    ['CMSC330: Organization of Programming Languages with oCaml and Rust ', 'CMSC351: Data Structures and Algorithms'],
-    },
-        {
-      monthLabel: 'Oct 2024',
-      projects:   ['MindMap', 'TuneTonic', "XFoundry"],
-      courses:    ['CMSC330: Organization of Programming Languages with oCaml and Rust ', 'CMSC351: Data Structures and Algorithms'],
-    },
-        {
-      monthLabel: 'Nov 2024',
-      projects:   ['MindMap', "XFoundry"],
-      courses:    ['CMSC330: Organization of Programming Languages with oCaml and Rust ', 'CMSC351: Data Structures and Algorithms' ],
-    },
-        {
-      monthLabel: 'Dec 2024',
-      projects:   ['MindMap', "XFoundry"],
-      courses:    ['CMSC330: Organization of Programming Languages with oCaml and Rust ', 'CMSC351: Data Structures and Algorithms'],
-    },
-        {
-      monthLabel: 'Jan 2025',
-      employer:   ['Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)'],
-      projects:   ["XFoundry"],
-      courses:    ['CMSC320: Intro to Data Science with Python', 'CMSC452: Elementary Theory of Computation',  "ECON306: Microeconomics"],
-      certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course']
-    },
-        {
-      monthLabel: 'Feb 2025',
-      employer:   ['Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)'],
-      projects:   ["XFoundry", "Data Science Attrition Analysis"],
-      courses:    ['CMSC320: Intro to Data Science with Python', 'CMSC452: Elementary Theory of Computation',  "ECON306: Microeconomics"],
-      certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course']
-    },
-        {
-      monthLabel: 'Mar 2025',
-      employer:   ['Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)'],
-      projects:   ["Telecommunication Churn Analysis", "VoiceVilla"],
-      courses:    ['CMSC320: Intro to Data Science with Python', 'CMSC452: Elementary Theory of Computation', "ECON306: Microeconomics"],
-      certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course']
-    },
-        {
-      monthLabel: 'Apr 2025',
-      employer:   ['Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)'],
-      projects:   ["Fruit Classification", "Author Classification"],
-      courses:    ['CMSC320: Intro to Data Science with Python', 'CMSC452: Elementary Theory of Computation',  "ECON306: Microeconomics"],
-      certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course']
-    },
-    {
-      monthLabel: 'May 2025',
-      employer:   ['Booz-Allen Hamilton --App Dev Club (Full Stack Engineer)'],
-      projects:   ["Boston Marathon Clustering Project", "NLI Analysis Project"],
-      courses:    ['CMSC320: Intro to Data Science with Python', 'CMSC452: Elementary Theory of Computation',  "ECON306: Microeconomics"],
-      certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course', 'IBM Developing Back-End Apps with Node.js and Express', 'IBM Get Started with Cloud Native, DevOps, Agile, and NoSQL']
-    },
-    {
-      monthLabel: 'Jun 2025',
-      employer:   ['Minnodi LLC (AI/MLE Intern)'],
-      projects:   ["SQuAD Dataset RAG-A Pipeline"],
-      certs:      ['Minnodi LLC Computer Vision, NLP, Agent Development Course', 'IBM Introduction to Containers w/ Docker, Kubernetes & OpenShift', 'IBM Application Development using Microservices and Serverless']
-    },
-    {
-      monthLabel: 'Jul 2025',
-      employer:   ['Minnodi LLC (AI/MLE Intern)'],
-      projects:   ["Ritvik's Portfolio v2 (with Angular)", "GiftLink"],
-      certs:      ['IBM Node.js & MongoDB: Developing Back-end Database Applications', 'IBM Full Stack Developer Course fully completed (12 courses)']
-    },
-    {
-      monthLabel: 'Aug 2025',
-      employer:   ['Minnodi LLC (AI/MLE Intern)', 'Campus Coders Crew'],   
-    },
-    {
-      monthLabel: 'Sep 2025',
-      employer:   ['SENS Psychology', 'Campus Coders Crew', 'App Dev Club (Technical Project Lead) @ UMD Business School'], 
-      courses:    ['CMSC422: Machine Learning', 'CMSC434: Human Computer Interaction', 'STAT401: Advanced Statistics'],   
-    },
-    {
-      monthLabel: 'Oct 2025',
-      employer:   ['SENS Psychology', 'App Dev Club (Technical Project Lead) @ UMD Business School'], 
-      courses:    ['CMSC422: Machine Learning', 'CMSC434: Human Computer Interaction', 'STAT401: Advanced Statistics'],  
-    },
-    {
-      monthLabel: 'Nov 2025',
-      employer:   ['SENS Psychology', 'App Dev Club (Technical Project Lead) @ UMD Business School'], 
-      courses:    ['CMSC422: Machine Learning', 'CMSC434: Human Computer Interaction', 'STAT401: Advanced Statistics'],  
-    },
-    {
-      monthLabel: 'Dec 2025',
-      employer:   ['SENS Psychology', 'App Dev Club (Technical Project Lead) @ UMD Business School'], 
-      courses:    ['CMSC422: Machine Learning', 'CMSC434: Human Computer Interaction', 'STAT401: Advanced Statistics'],  
-    }, 
-    {
-      monthLabel: 'Jan 2025',
-      employer:   ['XCL SureStart Mentor'],   
-    } 
+  // Visible months, grouped into years (newest first) for the year picker
+  timeline: ExperienceEntry[] = (timelineData as ExperienceEntry[]).filter(e => !e.hidden);
+  years: number[] = [...new Set(this.timeline.map(yearOf))].filter(y => !isNaN(y)).sort((a, b) => b - a);
+  selectedYear = this.years[0];
 
-  ];
+  get monthsInYear(): TimelineRow[] {
+    return this.timeline
+      .filter(e => yearOf(e) === this.selectedYear)
+      .sort((a, b) => monthOf(b) - monthOf(a))
+      .map(toRow)
+      .filter((row): row is TimelineRow => row !== null);
+  }
+
+  // Detail cards on the left, grouped into Experiences / Certifications
+  cards = (cardsData as ExperienceCard[]).filter(c => !c.hidden);
+  sections = CARD_SECTIONS;
+
+  cardsIn(section: CardSection): ExperienceCard[] {
+    return this.cards.filter(c => c.section === section);
+  }
+
+  // Titles look like "Role @ Company"; show the company as the title and the role underneath
+  companyOf(card: ExperienceCard): string {
+    return card.title.split(' @ ')[1]?.trim() || card.title;
+  }
+
+  roleOf(card: ExperienceCard): string {
+    return card.title.includes(' @ ') ? card.title.split(' @ ')[0].trim() : '';
+  }
 }
 

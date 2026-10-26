@@ -19,15 +19,89 @@
 
 /* projects.component.scss */
 
-/* 1) Grid layout */
+/* 1) Year sidebar + sections */
+.projects-layout {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+}
+
+.year-sidebar {
+  position: sticky;
+  top: calc(64px + 1.5rem);   /* clear the sticky header */
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  border-left: 1px solid rgba(128, 203, 196, 0.25);
+}
+
+.year-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.6rem 0.75rem 0.6rem 1rem;
+  margin-left: -1px;            /* sit the active bar on the rail */
+  border: none;
+  border-left: 3px solid transparent;
+  background: none;
+  color: #aaa;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+
+  .year-count {
+    font-size: 0.8rem;
+    color: #777;
+  }
+
+  &:hover {
+    color: #e0e0e0;
+    background: rgba(128, 203, 196, 0.06);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #80cbc4;
+    outline-offset: 2px;
+  }
+
+  &.active {
+    color: #80cbc4;
+    font-weight: 600;
+    border-left-color: #80cbc4;
+    background: rgba(128, 203, 196, 0.1);
+
+    .year-count { color: #80cbc4; }
+  }
+}
+
+.year-section + .year-section {
+  margin-top: 2.5rem;
+}
+
+.year-heading {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.5rem;
+  color: #e0e0e0;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 2) Grid layout */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
-  padding: 2rem;
 }
 
-/* 2) Card styling */
+/* 3) Card styling */
 .project-card {
   background: rgba(20, 20, 30, 0.9);
   color: #e0e0e0;
@@ -56,29 +130,6 @@
     }
   }
 }
-
-/* projects.component.scss */
-
-/* Filter bar centered at top */
-.filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-
-  /* Make the container only as wide as its chips */
-  width: max-content;
-
-  /* And auto‑center it in its parent */
-  margin: 1rem auto;
-}
-
-
-.filter-bar mat-chip.selected-chip {
-  background-color: #80cbc4 !important;  /* override default */
-  color: #0a0a0f !important;
-  font-weight: 600;
-}
-
 
 .summary {
   font-style: italic;
@@ -114,16 +165,9 @@
     width: 0ch;
     animation:
       typing1 5s steps(80, end) forwards 3.5s,
-      hideCaret 0s step-end    8.5s forwards;
+      blink-caret 0.75s step-end infinite 8.5s;
   }
 
-  /* animate second line, starting after line1 finishes (≈3s) */
-  .line2 {
-    width: 0ch;
-    animation:
-      typing2 5s steps(90, end) forwards 9s,
-      blinkCaret 0.75s step-end infinite 7.5s;
-  }
 }
 /* Reveal one character at each step */
 @keyframes typing {
@@ -134,14 +178,7 @@
   from { width: 0ch; }
   to   { width: 79ch; } /* match the number of chars in line1 */
 }
-@keyframes typing2 {
-  from { width: 0ch; }
-  to   { width: 90ch ; } /* match the number of chars in line2 */
-}
 
-@keyframes hideCaret {
-  to { border-right: none; }
-}
 /* Cursor blink */
 @keyframes blink-caret {
   50% { border-color: transparent }
@@ -160,5 +197,34 @@
     width: auto !important;   /* ignore the 0ch→Nch animation */
     animation: none !important;
     font-size: 1rem;       /* scale down if needed */
+  }
+
+  /* sidebar becomes a scrollable row of years above the cards */
+  .projects-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem 1.5rem;
+  }
+
+  .year-sidebar {
+    top: 64px;
+    z-index: 1;
+    flex-direction: row;
+    overflow-x: auto;
+    border-left: none;
+    border-bottom: 1px solid rgba(128, 203, 196, 0.25);
+    background: #0a0a0f;
+  }
+
+  .year-item {
+    width: auto;
+    flex: 0 0 auto;
+    gap: 0.5rem;
+    margin: 0 0 -1px;
+    padding: 0.6rem 0.9rem;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+
+    &.active { border-bottom-color: #80cbc4; }
   }
 }

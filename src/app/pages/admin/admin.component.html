@@ -1,0 +1,188 @@
+<!-- src/app/pages/admin/admin.component.html -->
+<section class="admin">
+  <header class="admin-header">
+    <h2>Content editor <span class="dev-badge">dev only</span></h2>
+    <p class="hint">Changes are written to <code>src/app/data/*.json</code> when you press Save. Commit those files to publish.</p>
+  </header>
+
+  <div class="banner error" *ngIf="error">{{ error }}</div>
+  <div class="banner ok" *ngIf="status">{{ status }}</div>
+
+  <nav class="tabs">
+    <button [class.active]="tab === 'projects'" (click)="tab = 'projects'">
+      Projects <span *ngIf="dirty.projects" class="dot" title="Unsaved changes"></span>
+    </button>
+    <button [class.active]="tab === 'timeline'" (click)="tab = 'timeline'">
+      Timeline <span *ngIf="dirty.timeline" class="dot" title="Unsaved changes"></span>
+    </button>
+    <button [class.active]="tab === 'cards'" (click)="tab = 'cards'">
+      Experience cards <span *ngIf="dirty.cards" class="dot" title="Unsaved changes"></span>
+    </button>
+  </nav>
+
+  <!-- PROJECTS -->
+  <div class="panes" *ngIf="tab === 'projects'">
+    <div class="list">
+      <div class="list-actions">
+        <button class="add-btn" (click)="addProject()"><mat-icon>add</mat-icon> Add project</button>
+        <button class="save-btn" [disabled]="!dirty.projects" (click)="save('projects')">Save</button>
+      </div>
+      <div
+        *ngFor="let p of projects; let i = index"
+        class="row"
+        [class.is-hidden]="p.hidden"
+        [class.selected]="i === selectedProject"
+        (click)="selectProject(i)"
+      >
+        <div class="row-text">
+          <strong>{{ p.title || '(untitled)' }} <span *ngIf="p.hidden" class="hidden-tag">hidden</span></strong>
+          <small>{{ p.dateRange || 'no date' }} · {{ p.tags.join(', ') || 'no tags' }}</small>
+        </div>
+        <div class="row-buttons" (click)="$event.stopPropagation()">
+          <button mat-icon-button [attr.aria-label]="p.hidden ? 'Show on site' : 'Hide from site'" [title]="p.hidden ? 'Hidden: click to show on site' : 'Hide from site'" (click)="toggleHidden('projects', p)"><mat-icon>{{ p.hidden ? 'visibility_off' : 'visibility' }}</mat-icon></button>
+          <button mat-icon-button aria-label="Move up" [disabled]="i === 0" (click)="moveProject(i, -1)"><mat-icon>arrow_upward</mat-icon></button>
+          <button mat-icon-button aria-label="Move down" [disabled]="i === projects.length - 1" (click)="moveProject(i, 1)"><mat-icon>arrow_downward</mat-icon></button>
+          <button mat-icon-button aria-label="Delete" (click)="deleteProject(i)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </div>
+    </div>
+
+    <form class="editor" *ngIf="projectDraft as d; else pickProject" (input)="applyProject()">
+      <label>Title
+        <input name="title" [(ngModel)]="d.title" required>
+      </label>
+      <div class="two-col">
+        <label>Date range
+          <input name="dateRange" [(ngModel)]="d.dateRange" placeholder="Jan 2025 – Mar 2025">
+        </label>
+        <label>GitHub / repo URL
+          <input name="repoUrl" [(ngModel)]="d.repoUrl" placeholder="https://github.com/…">
+        </label>
+      </div>
+      <label>Bullets <small>one per line</small>
+        <textarea name="bullets" rows="7" [(ngModel)]="d.bullets"></textarea>
+      </label>
+      <label>Metrics <small>optional, one per line</small>
+        <textarea name="metrics" rows="3" [(ngModel)]="d.metrics"></textarea>
+      </label>
+      <label>Skills <small>comma separated</small>
+        <input name="skills" [(ngModel)]="d.skills" placeholder="React.js, Node.js, Docker">
+      </label>
+      <fieldset>
+        <legend>Tags</legend>
+        <label *ngFor="let tag of allTags" class="check">
+          <input type="checkbox" [checked]="d.tags.includes(tag)" (change)="toggleTag(tag)"> {{ tag }}
+        </label>
+      </fieldset>
+    </form>
+    <ng-template #pickProject>
+      <div class="editor empty">Pick a project to edit, or add a new one.</div>
+    </ng-template>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="panes" *ngIf="tab === 'timeline'">
+    <div class="list">
+      <div class="list-actions">
+        <button class="add-btn" (click)="addMonth()"><mat-icon>add</mat-icon> Add next month</button>
+        <button class="save-btn" [disabled]="!dirty.timeline" (click)="save('timeline')">Save</button>
+      </div>
+      <div
+        *ngFor="let e of timeline; let i = index"
+        class="row"
+        [class.is-hidden]="e.hidden"
+        [class.selected]="i === selectedMonth"
+        (click)="selectMonth(i)"
+      >
+        <div class="row-text">
+          <strong>{{ e.monthLabel || '(no label)' }} <span *ngIf="e.hidden" class="hidden-tag">hidden</span></strong>
+          <small>{{ monthSummary(e) }}</small>
+        </div>
+        <div class="row-buttons" (click)="$event.stopPropagation()">
+          <button mat-icon-button [attr.aria-label]="e.hidden ? 'Show on site' : 'Hide from site'" [title]="e.hidden ? 'Hidden: click to show on site' : 'Hide from site'" (click)="toggleHidden('timeline', e)"><mat-icon>{{ e.hidden ? 'visibility_off' : 'visibility' }}</mat-icon></button>
+          <button mat-icon-button aria-label="Move up" [disabled]="i === 0" (click)="moveMonth(i, -1)"><mat-icon>arrow_upward</mat-icon></button>
+          <button mat-icon-button aria-label="Move down" [disabled]="i === timeline.length - 1" (click)="moveMonth(i, 1)"><mat-icon>arrow_downward</mat-icon></button>
+          <button mat-icon-button aria-label="Delete" (click)="deleteMonth(i)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </div>
+    </div>
+
+    <form class="editor" *ngIf="monthDraft as d; else pickMonth" (input)="applyMonth()">
+      <label>Month <small>e.g. "Jan 2026"</small>
+        <input name="monthLabel" [(ngModel)]="d.monthLabel">
+      </label>
+      <label *ngFor="let f of listFields">{{ f.label }} <small>one per line</small>
+        <textarea [name]="f.key" rows="3" [(ngModel)]="d[f.key]"></textarea>
+      </label>
+      <p class="hint">"Add next month" copies the previous month's work and courses so you only change what's new.</p>
+      <p class="hint">On the site each month shows only one thing: work if there is any, otherwise courses, otherwise certs and projects.</p>
+    </form>
+    <ng-template #pickMonth>
+      <div class="editor empty">Pick a month to edit, or add the next one.</div>
+    </ng-template>
+  </div>
+
+  <!-- EXPERIENCE CARDS -->
+  <div class="panes" *ngIf="tab === 'cards'">
+    <div class="list">
+      <div class="list-actions">
+        <button class="add-btn" (click)="addCard()"><mat-icon>add</mat-icon> Add card</button>
+        <button class="save-btn" [disabled]="!dirty.cards" (click)="save('cards')">Save</button>
+      </div>
+      <div
+        *ngFor="let c of cards; let i = index"
+        class="row"
+        [class.is-hidden]="c.hidden"
+        [class.selected]="i === selectedCard"
+        (click)="selectCard(i)"
+      >
+        <div class="row-text">
+          <strong>{{ c.title || '(untitled)' }} <span *ngIf="c.hidden" class="hidden-tag">hidden</span></strong>
+          <small>{{ sectionLabel(c.section) }} · {{ c.bullets.length }} bullets</small>
+        </div>
+        <div class="row-buttons" (click)="$event.stopPropagation()">
+          <button mat-icon-button [attr.aria-label]="c.hidden ? 'Show on site' : 'Hide from site'" [title]="c.hidden ? 'Hidden: click to show on site' : 'Hide from site'" (click)="toggleHidden('cards', c)"><mat-icon>{{ c.hidden ? 'visibility_off' : 'visibility' }}</mat-icon></button>
+          <button mat-icon-button aria-label="Move up" [disabled]="i === 0" (click)="moveCard(i, -1)"><mat-icon>arrow_upward</mat-icon></button>
+          <button mat-icon-button aria-label="Move down" [disabled]="i === cards.length - 1" (click)="moveCard(i, 1)"><mat-icon>arrow_downward</mat-icon></button>
+          <button mat-icon-button aria-label="Delete" (click)="deleteCard(i)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </div>
+    </div>
+
+    <form class="editor" *ngIf="cardDraft as d; else pickCard" (input)="applyCard()" (change)="applyCard()">
+      <div class="two-col">
+        <label>Section
+          <select name="section" [(ngModel)]="d.section">
+            <option *ngFor="let s of cardSections" [ngValue]="s.key">{{ s.label }}</option>
+          </select>
+        </label>
+        <label>Title <small>e.g. "SWE Intern &#64; Company"</small>
+          <input name="title" [(ngModel)]="d.title">
+        </label>
+      </div>
+      <label>Logo <small>upload an image, or pick one you've already used</small>
+        <div class="logo-field">
+          <img *ngIf="d.logo" class="logo-preview" [src]="d.logo" alt="">
+          <input name="logo" list="logo-options" [(ngModel)]="d.logo" placeholder="assets/company.png">
+          <button type="button" class="add-btn" [disabled]="uploading" (click)="logoFile.click()">
+            <mat-icon>upload</mat-icon> {{ uploading ? 'Uploading…' : 'Upload' }}
+          </button>
+          <input #logoFile type="file" accept="image/*" hidden (input)="$event.stopPropagation()" (change)="$event.stopPropagation(); uploadLogo(logoFile)">
+        </div>
+        <datalist id="logo-options">
+          <option *ngFor="let l of logoOptions" [value]="l"></option>
+        </datalist>
+      </label>
+      <label>Bullets <small>one per line</small>
+        <textarea name="bullets" rows="8" [(ngModel)]="d.bullets"></textarea>
+      </label>
+      <label>Skills <small>comma separated, shown as chips</small>
+        <input name="skills" [(ngModel)]="d.skills" placeholder="React.js, PostgreSQL">
+      </label>
+      <p class="hint">Cards show in this order on the Experience page, grouped under their section.</p>
+    </form>
+    <ng-template #pickCard>
+      <div class="editor empty">Pick a card to edit, or add a new one.</div>
+    </ng-template>
+  </div>
+</section>

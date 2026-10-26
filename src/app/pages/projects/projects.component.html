@@ -7,24 +7,40 @@
 <div class="typewriter-full">
   <span class="line1">
     These are all the projects I've completed over Full-Stack and Machine Learning
-  </span><br>
-  <span class="line2">
-    Click on the tags to filter them out, and click on the project cards for more information!
   </span>
 </div>
-<!-- 2) Filter bar -->
-<mat-chip-set class="filter-bar">
-  <mat-chip
-    *ngFor="let tag of allTags"
-    (click)="selectTag(tag)"
-    [ngClass]="{ 'selected-chip': tag === selectedTag }">
-    {{ tag }}
-  </mat-chip>
-</mat-chip-set>
+
+<div class="projects-layout">
+  <!-- 2) Year sidebar -->
+  <nav class="year-sidebar" aria-label="Filter projects by year">
+    <button
+      type="button"
+      class="year-item"
+      [class.active]="selectedYear === 'All'"
+      [attr.aria-pressed]="selectedYear === 'All'"
+      (click)="selectYear('All')">
+      <span class="year-label">All</span>
+      <span class="year-count">{{ projects.length }}</span>
+    </button>
+    <button
+      *ngFor="let group of yearGroups"
+      type="button"
+      class="year-item"
+      [class.active]="selectedYear === group.year"
+      [attr.aria-pressed]="selectedYear === group.year"
+      (click)="selectYear(group.year)">
+      <span class="year-label">{{ group.year }}</span>
+      <span class="year-count">{{ group.projects.length }}</span>
+    </button>
+  </nav>
+
+  <div class="year-sections">
+    <section *ngFor="let group of visibleGroups" class="year-section">
+      <h3 class="year-heading">{{ group.year }}</h3>
 
 <!-- 3) Projects grid -->
 <div class="projects-grid">
-  <mat-card *ngFor="let project of filteredProjects" class="project-card" (click)="openDetails(project)">
+  <mat-card *ngFor="let project of group.projects" class="project-card" (click)="openDetails(project)">
     
     <!-- Card header -->
     <mat-card-header>
@@ -68,4 +84,7 @@
     </mat-card-actions>
 
   </mat-card>
+</div>
+    </section>
+  </div>
 </div>

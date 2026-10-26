@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/R1tMah/portfolio-v2/src/app/data/schema/projects.schema.json",
+  "title": "Projects",
+  "description": "src/app/data/projects.json — cards on the Projects page, shown in array order.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["title", "bullets", "skills", "tags"],
+    "additionalProperties": false,
+    "properties": {
+      "title":     { "type": "string", "minLength": 1 },
+      "dateRange": { "type": "string", "description": "Free text, e.g. \"Jan 2025 – Mar 2025\". The years in it group the project on the Projects page." },
+      "bullets":   { "type": "array", "items": { "type": "string", "minLength": 1 }, "description": "The first bullet is the summary on the card." },
+      "metrics":   { "type": "array", "items": { "type": "string", "minLength": 1 } },
+      "skills":    { "type": "array", "items": { "type": "string", "minLength": 1 } },
+      "tags":      { "type": "array", "items": { "enum": ["Full-Stack", "ML", "Data Science", "CV", "NLP"] } },
+      "repoUrl":   { "type": "string", "pattern": "^https?://" },
+      "hidden":    { "type": "boolean", "description": "true keeps the project in the data but off the site." }
+    }
+  }
+}

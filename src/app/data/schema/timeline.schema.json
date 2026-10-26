@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/R1tMah/portfolio-v2/src/app/data/schema/timeline.schema.json",
+  "title": "Timeline",
+  "description": "src/app/data/timeline.json — one entry per month. The site groups them by year and sorts them itself, and shows only work if present, else courses, else certs and projects.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["monthLabel"],
+    "additionalProperties": false,
+    "properties": {
+      "monthLabel": { "type": "string", "pattern": "^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{4}$", "description": "Three-letter month, one normal space, four-digit year, e.g. \"Jan 2026\". Must be unique." },
+      "employer":   { "type": "array", "items": { "type": "string", "minLength": 1 } },
+      "projects":   { "type": "array", "items": { "type": "string", "minLength": 1 } },
+      "courses":    { "type": "array", "items": { "type": "string", "minLength": 1 } },
+      "certs":      { "type": "array", "items": { "type": "string", "minLength": 1 } },
+      "hidden":     { "type": "boolean", "description": "true keeps the month in the data but off the site." }
+    }
+  }
+}

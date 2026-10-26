@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/R1tMah/portfolio-v2/src/app/data/schema/cards.schema.json",
+  "title": "Experience cards",
+  "description": "src/app/data/cards.json — detail cards on the left of the Experience page, shown in array order under their section.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["section", "title", "logo", "bullets", "skills"],
+    "additionalProperties": false,
+    "properties": {
+      "section": { "enum": ["experience", "certification"] },
+      "title":   { "type": "string", "minLength": 1 },
+      "logo":    { "type": "string", "pattern": "^(assets/[^/\\\\]+)?$", "description": "\"\" for no logo, or assets/<file> where the file exists in src/assets/." },
+      "bullets": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+      "skills":  { "type": "array", "items": { "type": "string", "minLength": 1 } },
+      "hidden":  { "type": "boolean", "description": "true keeps the card in the data but off the site." }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+[
+  {
+    "section": "experience",
+    "title": "XCL Mentor @ SureStart",
+    "logo": "assets/surestart.png",
+    "bullets": [
+      "Mentored students in Singapore on software and AI development"
+    ],
+    "skills": []
+  },
+  {
+    "section": "experience",
+    "title": "SWE Intern @ SENS Psychology",
+    "logo": "assets/sens_psychology",
+    "bullets": [
+      "Built internal tooling for a psychotherapy practice"
+    ],
+    "skills": []
+  },
+  {
+    "section": "experience",
+    "title": "Project Lead @ UMD Business",
+    "logo": "assets/umd_business.jpg",
+    "bullets": [
+      "Led development of a finance-based Monte Carlo simulation app"
+    ],
+    "skills": []
+  },
+  {
+    "section": "experience",
+    "title": "AI/MLE Intern @ Minnodi LLC",
+    "logo": "assets/minnodi-removebg-preview.png",
+    "bullets": [
+      "Agentic AI browser automation for users with disabilities"
+    ],
+    "skills": [
+      "LangChain",
+      "FastAPI",
+      "Docker",
+      "Browser-Use",
+      "React.js",
+      "Gemini"
+    ]
+  },
+  {
+    "section": "experience",
+    "title": "Full Stack Developer @ Booz Allen",
+    "logo": "assets/booz-allen.png",
+    "bullets": [
+      "Insurance policy auditing with ML & AWS"
+    ],
+    "skills": [
+      "Next.js",
+      "PostgreSQL",
+      "OpenCV",
+      "AWS Lambda",
+      "AWS EC2",
+      "AWS SQS",
+      "AWS S3"
+    ]
+  },
+  {
+    "section": "experience",
+    "title": "Web Developer Intern @ STEM-E",
+    "logo": "assets/stem-e.png",
+    "bullets": [
+      "Worked on Note Summarizing Web Application called NoteSage",
+      "Used a variety of Figma workflows to make a design prototype of the project",
+      "Used HTML and CSS to implement the front-end of the website",
+      "Integrated Gemini API for summarizations and quiz questions"
+    ],
+    "skills": [
+      "HTML",
+      "JavaScript",
+      "CSS",
+      "Gemini API",
+      "Figma"
+    ],
+    "hidden": true
+  },
+  {
+    "section": "certification",
+    "title": "IBM JS Full-Stack Developer",
+    "logo": "assets/ibm.png",
+    "bullets": [
+      "Completed a 12-course JavaScript Certification that included the following courses: Introduction to Software Engineering, Introduction to HTML, CSS, & JavaScript, Getting Started with Git and GitHub, JavaScript Programming Essentials, Developing Front-End Apps with React, Developing Back-End Apps with Node.js and Express, Get Started with Cloud Native, DevOps, Agile, and NoSQL, Introduction to Containers w/ Docker, Kubernetes & OpenShift, Application Development using Microservices and Serverless, Node.js & MongoDB: Developing Back-end Database Applications, JavaScript Full Stack Capstone Project (GiftLink), Software Developer Career Guide and Interview Preparation"
+    ],
+    "skills": [
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "Docker",
+      "Kubernetes",
+      "Cloud Native"
+    ],
+    "hidden": true
+  },
+  {
+    "section": "certification",
+    "title": "Minnodi LLC Computer Vision, Natural Language Processing, and AI Agent implementation course",
+    "logo": "assets/minnodi-removebg-preview.png",
+    "bullets": [
+      "Created 7 projects listed in my projects section: Data Science Attrition Analysis, Telecommunication Churn Analysis, Fruit Classification CNN, Author Classification, Boston Marathon Clustering Analysis, NLI Analysis, SQuAD Dataset analysis",
+      "Spent around 200 hours on this live taught course, around 8 hours a week for 6 months"
+    ],
+    "skills": [
+      "Computer Vision",
+      "NLP",
+      "AI Agents",
+      "Clustering",
+      "Data Science"
+    ],
+    "hidden": true
+  }
+]
