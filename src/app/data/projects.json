@@ -1,5 +1,19 @@
 [
   {
+    "title": "Digi",
+    "dateRange": "Jul 2026 - Aug 2026",
+    "bullets": [
+      "Built a multiplayer game with 50+ users"
+    ],
+    "skills": [
+      "Next.js",
+      "Flask"
+    ],
+    "tags": [
+      "Full-Stack"
+    ]
+  },
+  {
     "title": "MindMap",
     "dateRange": "Jan 2024 - October 2024",
     "bullets": [
