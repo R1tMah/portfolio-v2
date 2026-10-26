@@ -1,5 +1,16 @@
 [
   {
+    "title": "TALOS",
+    "bullets": [
+      "agentic assistant for all my data analysis across finances, fitness, and personal wellbeing, as well as my daily news similar to Jarvis"
+    ],
+    "skills": [
+      "agents",
+      "next.js"
+    ],
+    "tags": []
+  },
+  {
     "title": "Digi",
     "dateRange": "Jul 2026 - Aug 2026",
     "bullets": [
