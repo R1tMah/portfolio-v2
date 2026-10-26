@@ -2,5 +2,22 @@
   # Validate content first: a bad commit fails the build and the last good deploy stays live.
   command = "node tools/validate-content.mjs && ng build --configuration production"
   publish = "dist/ritvik-portfolio/browser"
-  functions = "dist/ritvik-portfolio/server"
 
+# Backend for the /admin editor (commits content to GitHub). Basic auth for the
+# editor lives in netlify/edge-functions/admin-auth.js. Both need the env vars
+# ADMIN_USERNAME, ADMIN_PASSWORD and GITHUB_TOKEN set in the Netlify UI.
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/admin/api/*"
+  to = "/.netlify/functions/content-api/:splat"
+  status = 200
+  force = true
+
+# Single-page app: serve index.html for routes like /projects or /admin so
+# opening or refreshing them doesn't 404. Real files (JS, CSS, assets) win.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

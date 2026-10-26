@@ -62,6 +62,19 @@ export class ProjectsComponent {
       .map(([year, projects]) => ({ year, projects }));
   }
 
+  // Avatar icon on each card, picked from the project's first tag
+  private static TAG_ICONS: Record<string, string> = {
+    'Full-Stack':   'web',
+    'ML':           'psychology',
+    'Data Science': 'insights',
+    'CV':           'visibility',
+    'NLP':          'chat',
+  };
+
+  iconFor(project: Project): string {
+    return ProjectsComponent.TAG_ICONS[project.tags[0]] ?? 'code';
+  }
+
   openDetails(project: Project) {
     this.dialog.open(ProjectDetailComponent, {
       data: project,

@@ -1,6 +1,6 @@
 // Shared shapes for the content in projects.json, timeline.json and cards.json.
-// Edit the content through the dev-only /admin page (npm run dev), or commit the
-// JSON from another app (see docs/CONTENT_UPDATES.md). The JSON Schemas in
+// Edit the content through the /admin page (locally with npm run dev, or live behind
+// basic auth), or commit the JSON from another app (see docs/CONTENT_UPDATES.md). The JSON Schemas in
 // ./schema are the contract; keep these interfaces in sync with them.
 import projectsSchema from './schema/projects.schema.json';
 

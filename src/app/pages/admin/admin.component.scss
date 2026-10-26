@@ -42,6 +42,10 @@ code {
   &.ok    { background: rgba(128, 203, 196, 0.15); border: 1px solid $accent; }
 }
 
+.reload-btn {
+  margin-left: 0.75rem;
+}
+
 .tabs {
   display: flex;
   gap: 0.5rem;

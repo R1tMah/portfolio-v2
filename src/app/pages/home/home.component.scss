@@ -2,38 +2,21 @@
 .home-hero {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 100vh;
   padding: 4rem;
+  text-align: center;
 
-  /* Image on the left */
-  .hero-image {
-    flex-shrink: 0;
-    margin-right: 6rem;
-
-    img {
-      width: 400px;
-      border-radius: 50%;
-      opacity: 0;
-      /* Slide in, then bob */
-      animation:
-        slideInLeft 1s ease-out forwards,
-        floatBob   6s ease-in-out 1s infinite;
-    }
-  }
-
-  /* Text on the right */
   .hero-text {
-    max-width: 50%;
-    margin-left: 2rem;
+    width: 100%;
 
     .headline {
       font-family: 'Roboto Mono', monospace;
-      font-size: 3.25rem;
-      line-height: 1.2;
-      margin: 0 0 1rem;
+      font-size: clamp(2rem, 7vw, 6.5rem);
+      line-height: 1.1;
+      margin: 0 0 1.5rem;
       opacity: 0;
-      animation: fadeInRight 1s ease-out forwards;
+      animation: fadeInUp 1s ease-out forwards;
 
       .greeting {
         display: block;
@@ -48,11 +31,11 @@
 
     .tagline {
       font-family: 'Roboto Mono', monospace;
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 1.8vw, 1.6rem);
       color: #80cbc4;
       margin: 0;
       opacity: 0;
-      animation: fadeInRight 1s ease-out forwards 0.3s;
+      animation: fadeInUp 1s ease-out forwards 0.3s;
     }
   }
 }
@@ -148,19 +131,9 @@
 }
 
 /* 3) Keyframes */
-@keyframes slideInLeft {
-  0%   { transform: translateX(-50px); opacity: 0; }
-  100% { transform: translateX(0);     opacity: 1; }
-}
-
-@keyframes fadeInRight {
-  0%   { transform: translateX(50px); opacity: 0; }
-  100% { transform: translateX(0);    opacity: 1; }
-}
-
-@keyframes floatBob {
-  0%, 100% { transform: translateY(30); }
-  50%      { transform: translateY(-30px); }
+@keyframes fadeInUp {
+  0%   { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
 }
 
 @keyframes pulse {
@@ -172,25 +145,7 @@
 /* Responsive tweaks for phones */
 @media (max-width: 600px) {
   .home-hero {
-    flex-direction: column;
-    align-items: center;      /* center children horizontally */
-    justify-content: flex-start;
-    height: auto;
-    padding: 2rem;
-
-    .hero-text {
-      /* remove desktop offsets */
-      max-width: 100% !important;
-      margin: 0 auto 1.5rem !important;
-      text-align: center;
-
-      .headline { font-size: 2rem; }
-      .tagline  { font-size: 1rem; }
-    }
-
-    .hero-image {
-      display: none;  /* hide portrait entirely, so text really centers */
-    }
+    padding: 2rem 1rem;
   }
 
   .section-heading { font-size: 1.5rem; }

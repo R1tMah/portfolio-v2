@@ -1,23 +1,26 @@
-.typewriter-container {
+/* projects.component.scss */
+
+/* 0) Page intro, same heading as the home page */
+.page-intro {
   text-align: center;
-  margin: 2rem 0; /* space above/below */
+  padding: 3rem 1.5rem 1rem;
+  animation: fadeUp 0.8s ease-out both;
 }
-.typewriter-heading {
-  display: inline-block;
+
+.section-heading {
+  margin: 0 0 0.75rem;
   font-family: 'Roboto Mono', monospace;
   font-size: 2rem;
+  font-weight: 700;
   color: #e0e0e0;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid #80cbc4;   /* static cursor */
-
-  /* Animate width from 0 to exactly the length of the text (21 characters) */
-  width: 0ch;
-  animation: typing 3s steps(21, end) forwards, 
-  blink-caret 0.75s step-end infinite;
 }
 
-/* projects.component.scss */
+.page-subtitle {
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+  color: #aaa;
+}
 
 /* 1) Year sidebar + sections */
 .projects-layout {
@@ -101,103 +104,74 @@
   gap: 1.5rem;
 }
 
-/* 3) Card styling */
+/* 3) Card styling, same as the home page cards */
 .project-card {
+  display: flex;
+  flex-direction: column;
   background: rgba(20, 20, 30, 0.9);
   color: #e0e0e0;
-  max-width: 500px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+
   mat-card-header {
-    mat-card-title {
-      font-weight: 600;
-      color: #80cbc4;
-    }
+    align-items: center;
+    padding-bottom: 0;
   }
 
-  mat-chip-list {
-    margin-top: 0.5rem;
-    mat-chip {
-      background: #333;
-      color: #aaa;
-      margin-right: 0.25rem;
-      
-    }
+  .card-icon {
+    color: #80cbc4;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(128, 203, 196, 0.12);
   }
 
+  mat-card-title {
+    font-weight: 600;
+    color: #80cbc4;
+  }
+
+  mat-card-subtitle {
+    color: #999;
+  }
+
+  mat-card-content {
+    flex: 1;                  /* keep actions pinned to the bottom */
+  }
+
+  .summary {
+    margin: 0.5rem 0 0;
+    line-height: 1.6;
+    color: #ccc;
+  }
+
+  .skill-chips {
+    display: block;
+    margin-top: 0.75rem;
+  }
+
+  mat-card-actions a,
   mat-card-actions button {
     color: #80cbc4;
-    mat-icon {
-      margin-right: 0.25rem;
-    }
   }
 }
 
-.summary {
-  font-style: italic;
-  color: #ccc;
-  margin-bottom: 1rem;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.project-card {
-  cursor: pointer;         /* hint that it’s clickable */
-  &:hover {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  }
-}
-
-.typewriter-container {
-  text-align: center;
-  margin: 2rem 0; /* space above/below */
-}
-.typewriter-full {
-  font-family: 'Roboto Mono', monospace;
-  color: #e0e0e0;
-  text-align: center;
-  margin-bottom: 2rem;
-  
-  span {
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 2px solid #80cbc4;
-  }
-
-  /* animate first line */
-  .line1 {
-    width: 0ch;
-    animation:
-      typing1 5s steps(80, end) forwards 3.5s,
-      blink-caret 0.75s step-end infinite 8.5s;
-  }
-
-}
-/* Reveal one character at each step */
-@keyframes typing {
-  from { width: 0 }
-  to   { width: 21ch }
-}
-@keyframes typing1 {
-  from { width: 0ch; }
-  to   { width: 79ch; } /* match the number of chars in line1 */
-}
-
-/* Cursor blink */
-@keyframes blink-caret {
-  50% { border-color: transparent }
-}
-
 
 @media (max-width: 600px) {
-  /* headings & full text fall back to normal flow */
-  .typewriter-heading{
-    font-size: 1.5rem;
-  }
-  .typewriter-full span {
-    white-space: normal;      /* allow wrapping */
-    overflow: visible;        /* no clipping */
-    border-right: none;       /* no cursor bar */
-    width: auto !important;   /* ignore the 0ch→Nch animation */
-    animation: none !important;
-    font-size: 1rem;       /* scale down if needed */
-  }
+  .section-heading { font-size: 1.5rem; }
 
   /* sidebar becomes a scrollable row of years above the cards */
   .projects-layout {
@@ -227,4 +201,9 @@
 
     &.active { border-bottom-color: #80cbc4; }
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-intro { animation: none; }
+  .project-card:hover { transform: none; }
 }

@@ -1,9 +1,13 @@
 // Validates src/app/data/*.json against the schemas in src/app/data/schema/.
 // Implements just the JSON Schema keywords those schemas use, so it runs with
-// plain Node (no npm install) in CI, in the Netlify build, and in the dev editor.
+// plain Node (no npm install) in CI, in the Netlify build, in the local editor
+// and in the deployed editor's Netlify Function.
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import projectsSchema from '../src/app/data/schema/projects.schema.json' with { type: 'json' };
+import timelineSchema from '../src/app/data/schema/timeline.schema.json' with { type: 'json' };
+import cardsSchema    from '../src/app/data/schema/cards.schema.json' with { type: 'json' };
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const DATA_DIR = path.join(ROOT, 'src/app/data');
@@ -15,8 +19,10 @@ export const CONTENT_FILES = {
   cards:    'cards.json',
 };
 
-const schemaFor = name =>
-  JSON.parse(readFileSync(path.join(DATA_DIR, 'schema', `${name}.schema.json`), 'utf8'));
+const SCHEMAS = { projects: projectsSchema, timeline: timelineSchema, cards: cardsSchema };
+
+// Default logo check: does the file exist in src/assets on this machine?
+const localAssetExists = fileName => existsSync(path.join(ASSETS_DIR, fileName));
 
 function typeOf(value) {
   if (Array.isArray(value)) return 'array';
@@ -52,7 +58,7 @@ function check(schema, value, at, errors) {
 }
 
 // Rules a schema can't express.
-function extraChecks(name, data, file, errors) {
+function extraChecks(name, data, file, errors, assetExists) {
   if (!Array.isArray(data)) return;
   if (name === 'timeline') {
     const seen = new Set();
@@ -63,20 +69,23 @@ function extraChecks(name, data, file, errors) {
   }
   if (name === 'cards') {
     data.forEach((c, i) => {
-      if (typeof c?.logo === 'string' && c.logo && !existsSync(path.join(ASSETS_DIR, c.logo.slice('assets/'.length)))) {
+      if (typeof c?.logo === 'string' && c.logo && !assetExists(c.logo.slice('assets/'.length))) {
         errors.push(`${file}[${i}].logo: src/${c.logo} does not exist (commit the image first)`);
       }
     });
   }
 }
 
-/** Validate already-parsed data for one content file. Returns a list of error strings. */
-export function validateContent(name, data) {
+/**
+ * Validate already-parsed data for one content file. Returns a list of error strings.
+ * `assetExists(fileName)` checks a logo file in src/assets; it defaults to the local disk.
+ */
+export function validateContent(name, data, { assetExists = localAssetExists } = {}) {
   const file = CONTENT_FILES[name];
   if (!file) return [`unknown content file "${name}"`];
   const errors = [];
-  check(schemaFor(name), data, file, errors);
-  extraChecks(name, data, file, errors);
+  check(SCHEMAS[name], data, file, errors);
+  extraChecks(name, data, file, errors, assetExists);
   return errors;
 }
 
@@ -94,4 +103,23 @@ export function validateAll() {
     errors.push(...validateContent(name, data));
   }
   return errors;
+}
+
+// ---- Image uploads (shared by the local editor server and the Netlify Function) ----
+
+export const IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
+
+/**
+ * Turn an uploaded file name into a safe src/assets file name, e.g. "My Logo!.PNG" → "my-logo.png".
+ * Returns null for unsupported extensions. `taken(name)` says whether a name is already used;
+ * collisions get -1, -2, … appended instead of overwriting.
+ */
+export async function pickAssetName(original, taken) {
+  const lower = path.basename(String(original ?? '')).toLowerCase();
+  const ext = path.extname(lower);
+  if (!IMAGE_EXTS.includes(ext)) return null;
+  const base = path.basename(lower, ext).replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '') || 'image';
+  let name = base + ext;
+  for (let n = 1; await taken(name); n++) name = `${base}-${n}${ext}`;
+  return name;
 }

@@ -157,8 +157,35 @@ await updateJson('src/app/data/projects.json',
 - **GitHub Actions** (`.github/workflows/validate-content.yml`) runs the same check on every commit that touches the data, so a bad commit gets a red ✗ on GitHub.
 - To fix it, commit corrected JSON. The next build goes live as normal.
 
-You can run the same check locally with `npm run validate:content`. The `/admin` editor runs it on every save too.
+You can run the same check locally with `npm run validate:content`. The `/admin` editor (local and live) runs it on every save too.
 
-## Working alongside the local editor
+## The /admin editor
 
-The `/admin` editor (`npm run dev`) edits these same files on your computer. Since your app now commits to `main` directly, run `git pull` before editing locally. Otherwise you'll hit a merge conflict when you push.
+The same editor runs in two places, both talking to `/admin/api`:
+
+| | Local (`npm run dev`) | Live (`https://ritvik-mahapatra.netlify.app/admin`) |
+| --- | --- | --- |
+| Login | none | browser username/password prompt (basic auth) |
+| Save | writes the JSON files on your computer; commit and push to publish | commits to `main` on GitHub; Netlify rebuilds in ~1–2 min |
+| Image upload | saved to `src/assets/`, shows immediately | committed to `src/assets/`, shows after the rebuild |
+| Backend | `tools/dev.mjs` | `netlify/functions/content-api.mjs` (+ `netlify/edge-functions/admin-auth.js` for the login) |
+
+Both refuse to save over changes made since you opened the editor (by your other app, a commit, or another tab). You'll see a warning with a **Reload** button instead of overwriting.
+
+### Live editor setup (one time)
+
+In Netlify, go to **Site configuration → Environment variables** and add:
+
+| Variable | Value |
+| --- | --- |
+| `ADMIN_USERNAME` | the username for the login prompt |
+| `ADMIN_PASSWORD` | the password for the login prompt |
+| `GITHUB_TOKEN` | a fine-grained token with **Contents: Read and write** on `R1tMah/portfolio-v2` only (created as in [One-time setup](#one-time-setup-a-github-token); a separate token from your other app's makes it easy to revoke either) |
+
+Then trigger a redeploy (**Deploys → Trigger deploy**) so the functions pick up the variables. Until `ADMIN_PASSWORD` is set, `/admin` stays locked for everyone.
+
+> Basic auth is a simple lock. The password travels with every request (over HTTPS), and there's no rate limiting, so use a password you don't use anywhere else.
+
+### Working alongside the local editor
+
+Your other app and the live editor both commit to `main`, so run `git pull` before editing locally. Otherwise you'll hit a merge conflict when you push.

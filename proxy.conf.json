@@ -7,11 +7,11 @@
       "^/api": ""
     }
   },
-  "/dev-admin": {
+  "/assets": {
     "target": "http://127.0.0.1:3003",
     "secure": false
   },
-  "/assets": {
+  "/admin/api": {
     "target": "http://127.0.0.1:3003",
     "secure": false
   }

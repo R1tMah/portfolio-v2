@@ -1,11 +1,15 @@
 <!-- src/app/pages/admin/admin.component.html -->
 <section class="admin">
   <header class="admin-header">
-    <h2>Content editor <span class="dev-badge">dev only</span></h2>
-    <p class="hint">Changes are written to <code>src/app/data/*.json</code> when you press Save. Commit those files to publish.</p>
+    <h2>Content editor <span class="dev-badge">{{ live ? 'live' : 'local' }}</span></h2>
+    <p class="hint" *ngIf="live">Save commits <code>src/app/data/*.json</code> to GitHub, and the site rebuilds with your changes in a minute or two.</p>
+    <p class="hint" *ngIf="!live">Save writes <code>src/app/data/*.json</code> on this computer. Commit and push those files to publish.</p>
   </header>
 
-  <div class="banner error" *ngIf="error">{{ error }}</div>
+  <div class="banner error" *ngIf="error">
+    {{ error }}
+    <button *ngIf="conflictTab" class="add-btn reload-btn" (click)="load(conflictTab)">Reload {{ conflictTab }}</button>
+  </div>
   <div class="banner ok" *ngIf="status">{{ status }}</div>
 
   <nav class="tabs">

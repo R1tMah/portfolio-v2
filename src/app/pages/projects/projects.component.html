@@ -1,14 +1,13 @@
 <!-- src/app/pages/projects/projects.component.html -->
 
-<!-- 1) Type‑writer heading -->
-<div class="typewriter-container">
-  <h2 class="typewriter-heading">These are my projects</h2>
-</div>
-<div class="typewriter-full">
-  <span class="line1">
-    These are all the projects I've completed over Full-Stack and Machine Learning
-  </span>
-</div>
+<!-- 1) Page intro, same heading as the home page -->
+<header class="page-intro">
+  <h2 class="section-heading">Projects</h2>
+  <p class="page-subtitle">
+    Everything I've built across full-stack and machine learning, grouped by year.
+    Pick a year on the left, or open a card for the full write-up.
+  </p>
+</header>
 
 <div class="projects-layout">
   <!-- 2) Year sidebar -->
@@ -38,53 +37,38 @@
     <section *ngFor="let group of visibleGroups" class="year-section">
       <h3 class="year-heading">{{ group.year }}</h3>
 
-<!-- 3) Projects grid -->
-<div class="projects-grid">
-  <mat-card *ngFor="let project of group.projects" class="project-card" (click)="openDetails(project)">
-    
-    <!-- Card header -->
-    <mat-card-header>
-      <mat-card-title>{{ project.title }}</mat-card-title>
-    </mat-card-header>
+      <!-- 3) Projects grid -->
+      <div class="projects-grid">
+        <mat-card *ngFor="let project of group.projects" class="project-card" (click)="openDetails(project)">
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="card-icon">{{ iconFor(project) }}</mat-icon>
+            <mat-card-title>{{ project.title }}</mat-card-title>
+            <mat-card-subtitle *ngIf="project.dateRange">{{ project.dateRange }}</mat-card-subtitle>
+          </mat-card-header>
 
-    <!-- Card body -->
-    <mat-card-content>
+          <mat-card-content>
+            <p class="summary">{{ project.bullets[0] }}</p>
+            <mat-chip-set class="skill-chips" *ngIf="project.skills.length">
+              <mat-chip *ngFor="let skill of project.skills">{{ skill }}</mat-chip>
+            </mat-chip-set>
+          </mat-card-content>
 
-      <!-- Bullets -->
-      <p class="summary">{{ project.bullets[0] }}</p>
-
-
-      <!-- Skills chips -->
-      <mat-chip-set class="skill-chips">
-        <mat-chip *ngFor="let skill of project.skills">{{ skill }}</mat-chip>
-      </mat-chip-set>
-
-    </mat-card-content>
-
-    <mat-card-actions align="end">
-    <button mat-button (click)="openDetails(project); $event.stopPropagation()">
-      <mat-icon>info</mat-icon> Details
-    </button>
-  </mat-card-actions>
-    <!-- Card actions (wire up real links when you’re ready) -->
-    <mat-card-actions align="end">
-      <button mat-button>
-        <mat-icon>code</mat-icon>     <a
-      *ngIf="project.repoUrl"
-      class="github-link"
-      [href]="project.repoUrl"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <!-- you can swap this for a Material icon or an <img> -->
-      
-      View Code
-    </a>
-      </button>
-    </mat-card-actions>
-
-  </mat-card>
-</div>
+          <mat-card-actions align="end">
+            <a
+              *ngIf="project.repoUrl"
+              mat-button
+              [href]="project.repoUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              (click)="$event.stopPropagation()">
+              <mat-icon>code</mat-icon> View code
+            </a>
+            <button mat-button (click)="openDetails(project); $event.stopPropagation()">
+              Details <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
     </section>
   </div>
 </div>

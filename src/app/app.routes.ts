@@ -7,7 +7,6 @@ import { VibematchComponent } from './pages/vibematch/vibematch.component';
 import { ContactComponent }   from './pages/contact/contact.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { devRoutes } from './dev-routes';
 
 export const routes: Routes = [
   { path: '',            component: HomeComponent },
@@ -16,7 +15,9 @@ export const routes: Routes = [
   { path: 'chatbot',     component: ChatbotComponent },
   { path: 'vibematch',   component: VibematchComponent },
   { path: 'contact',     component: ContactComponent },
-  ...devRoutes,
+  // Content editor. Locally it saves files (npm run dev); deployed it's behind basic auth
+  // and commits to GitHub (netlify/functions/content-api.mjs).
+  { path: 'admin', loadComponent: () => import('./pages/admin/admin.component').then(m => m.AdminComponent) },
   { path: '**',          redirectTo: '', pathMatch: 'full' }
 ];
 
