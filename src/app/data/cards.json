@@ -1,6 +1,15 @@
 [
   {
     "section": "experience",
+    "title": "SWE @ Flexcar",
+    "logo": "assets/img_0670.png",
+    "bullets": [
+      "automating technician admin"
+    ],
+    "skills": []
+  },
+  {
+    "section": "experience",
     "title": "SWE Intern @ IBM",
     "logo": "assets/ibm.png",
     "bullets": [
