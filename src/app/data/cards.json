@@ -1,6 +1,19 @@
 [
   {
     "section": "experience",
+    "title": "SWE Intern @ IBM",
+    "logo": "assets/ibm.png",
+    "bullets": [
+      "Integrated Post Quantum Cryptography Support into Liberty and WebSphere Application Server"
+    ],
+    "skills": [
+      "C",
+      "JUnit",
+      "Cryptography"
+    ]
+  },
+  {
+    "section": "experience",
     "title": "XCL Mentor @ SureStart",
     "logo": "assets/surestart.png",
     "bullets": [

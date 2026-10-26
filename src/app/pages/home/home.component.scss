@@ -1,10 +1,8 @@
-/* 1) Full‑screen Hero layout */
+/* 1) Hero layout */
 .home-hero {
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  padding: 4rem;
+  padding: 3rem 4rem 4rem;      /* sits just under the sticky header */
   text-align: center;
 
   .hero-text {
@@ -12,7 +10,7 @@
 
     .headline {
       font-family: 'Roboto Mono', monospace;
-      font-size: clamp(2rem, 7vw, 6.5rem);
+      font-size: clamp(2rem, 4vw, 3.75rem);
       line-height: 1.1;
       margin: 0 0 1.5rem;
       opacity: 0;
@@ -31,7 +29,7 @@
 
     .tagline {
       font-family: 'Roboto Mono', monospace;
-      font-size: clamp(1rem, 1.8vw, 1.6rem);
+      font-size: clamp(1rem, 1.3vw, 1.2rem);
       color: #80cbc4;
       margin: 0;
       opacity: 0;
@@ -145,7 +143,7 @@
 /* Responsive tweaks for phones */
 @media (max-width: 600px) {
   .home-hero {
-    padding: 2rem 1rem;
+    padding: 2rem 1rem 3rem;
   }
 
   .section-heading { font-size: 1.5rem; }
